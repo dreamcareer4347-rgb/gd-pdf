@@ -19,6 +19,10 @@ export const metadata = {
     icon: '/gd-logo.png',
     apple: '/gd-logo.png',
   },
+  // Yahan Google Verification code add kiya hai:
+  verification: {
+    google: '0i-Rdd8sDuMwGD84UMyQcj63tyEtVDlNNY0oMHIbsg4',
+  },
   openGraph: {
     title: 'GD PDF Suite — Free Online PDF Utility',
     description: '100% client-side PDF converter & image resizer. Zero server uploads.',
