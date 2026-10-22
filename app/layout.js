@@ -1,5 +1,6 @@
 import './globals.css';
 import SeoSchema from '@/components/SeoSchema';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: 'GD PDF Suite — Free Online Image to PDF & Compressor Tools',
@@ -19,7 +20,6 @@ export const metadata = {
     icon: '/gd-logo.png',
     apple: '/gd-logo.png',
   },
-  // Yahan Google Verification code add kiya hai:
   verification: {
     google: '0i-Rdd8sDuMwGD84UMyQcj63tyEtVDlNNY0oMHIbsg4',
   },
@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased bg-white text-slate-900">
         <SeoSchema />
         {children}
+        <Analytics />
       </body>
     </html>
   );
