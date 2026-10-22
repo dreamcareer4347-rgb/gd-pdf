@@ -1,69 +1,246 @@
-import Image from "next/image";
+'use client';
+
+import React, { useState } from 'react';
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import UploadArea from '@/components/UploadArea';
+import ImageList from '@/components/ImageList';
+import PdfSettings from '@/components/PdfSettings';
+import PdfPreview from '@/components/PdfPreview';
+import DownloadPanel from '@/components/DownloadPanel';
+import MergePdf from '@/components/MergePdf';
+import CompressPdf from '@/components/CompressPdf';
+import ImageResizer from '@/components/ImageResizer';
+import HowItWorks from '@/components/HowItWorks';
+import FaqSection from '@/components/FaqSection';
+import Footer from '@/components/Footer';
+import { generatePdf } from '@/utils/pdfGenerator';
+import { validateImageFile } from '@/utils/fileValidation';
+import { loadImage } from '@/utils/imageUtils';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState('image-to-pdf');
+
+  // Picture to PDF state
+  const [images, setImages] = useState([]);
+  const [settings, setSettings] = useState({
+    pageSize: 'a4',
+    orientation: 'portrait',
+    imagePlacement: 'fit',
+    margins: 'normal',
+    filename: 'gd-converted-images.pdf',
+  });
+  const [isConverting, setIsConverting] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [result, setResult] = useState(null);
+
+  // Add images
+  const handleImagesAdded = (newImages) => {
+    setImages((prev) => [...prev, ...newImages]);
+    setResult(null);
+  };
+
+  // Remove single image
+  const handleRemoveImage = (id) => {
+    setImages((prev) => {
+      const target = prev.find((img) => img.id === id);
+      if (target) URL.revokeObjectURL(target.url);
+      return prev.filter((img) => img.id !== id);
+    });
+    setResult(null);
+  };
+
+  // Clear all images
+  const handleClearAll = () => {
+    images.forEach((img) => URL.revokeObjectURL(img.url));
+    setImages([]);
+    setResult(null);
+  };
+
+  // Rotate image 90 degrees
+  const handleRotateImage = (id) => {
+    setImages((prev) =>
+      prev.map((img) =>
+        img.id === id ? { ...img, rotation: (img.rotation + 90) % 360 } : img
+      )
+    );
+  };
+
+  // Move up
+  const handleMoveUp = (index) => {
+    if (index === 0) return;
+    setImages((prev) => {
+      const copy = [...prev];
+      const temp = copy[index];
+      copy[index] = copy[index - 1];
+      copy[index - 1] = temp;
+      return copy;
+    });
+  };
+
+  // Move down
+  const handleMoveDown = (index) => {
+    if (index === images.length - 1) return;
+    setImages((prev) => {
+      const copy = [...prev];
+      const temp = copy[index];
+      copy[index] = copy[index + 1];
+      copy[index + 1] = temp;
+      return copy;
+    });
+  };
+
+  // Convert to PDF action
+  const handleConvert = async () => {
+    if (images.length === 0) return;
+
+    setIsConverting(true);
+    setProgress(0);
+    setResult(null);
+
+    try {
+      const pdfResult = await generatePdf({
+        images,
+        settings,
+        onProgress: (p) => setProgress(p),
+      });
+
+      setResult(pdfResult);
+    } catch (error) {
+      console.error('PDF Generation Error:', error);
+      alert('Failed to generate PDF. Please try again with smaller or fewer images.');
+    } finally {
+      setIsConverting(false);
+    }
+  };
+
+  const handleReset = () => {
+    handleClearAll();
+    setResult(null);
+  };
+
+  const handleAddMoreFiles = async (fileList) => {
+    const newImages = [];
+    for (let file of fileList) {
+      const val = validateImageFile(file);
+      if (val.isValid) {
+        try {
+          const loaded = await loadImage(file);
+          newImages.push(loaded);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    if (newImages.length > 0) {
+      handleImagesAdded(newImages);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+      {/* Header with Navigation Tabs & Mobile Bottom Bar */}
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      {/* TAB 1: Picture to PDF */}
+      {activeTab === 'image-to-pdf' && (
+        <>
+          {/* Professional Hero Section */}
+          <HeroSection 
+            onGetStarted={() => {
+              const element = document.getElementById('converter-workspace');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+              }
+            }} 
+          />
+
+          {/* Main Converter Workspace */}
+          <main id="converter-workspace" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+            {images.length === 0 ? (
+              <UploadArea onImagesAdded={handleImagesAdded} />
+            ) : (
+              <div className="space-y-8 animate-fade-in">
+                {/* Image List Workspace */}
+                <ImageList
+                  images={images}
+                  onRemove={handleRemoveImage}
+                  onClearAll={handleClearAll}
+                  onRotate={handleRotateImage}
+                  onMoveUp={handleMoveUp}
+                  onMoveDown={handleMoveDown}
+                  onAddMoreClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.multiple = true;
+                    input.accept = 'image/jpeg,image/png,image/webp';
+                    input.onchange = (e) => {
+                      if (e.target.files) {
+                        handleAddMoreFiles(Array.from(e.target.files));
+                      }
+                    };
+                    input.click();
+                  }}
+                />
+
+                {/* PDF Settings */}
+                <PdfSettings settings={settings} onChange={setSettings} />
+
+                {/* Live Preview */}
+                <PdfPreview images={images} settings={settings} />
+
+                {/* Download Panel & Conversion Trigger */}
+                <DownloadPanel
+                  onConvert={handleConvert}
+                  isConverting={isConverting}
+                  progress={progress}
+                  result={result}
+                  onReset={handleReset}
+                />
+              </div>
+            )}
+          </main>
+
+          {/* SEO Content Sections */}
+          <HowItWorks />
+          <FaqSection />
+        </>
+      )}
+
+      {/* TAB 2: Resize Image */}
+      {activeTab === 'resize-image' && (
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+          <ImageResizer />
+        </main>
+      )}
+
+      {/* TAB 3: Merge PDF */}
+      {activeTab === 'merge-pdf' && (
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+          <MergePdf />
+        </main>
+      )}
+
+      {/* TAB 4: Compress PDF */}
+      {activeTab === 'compress-pdf' && (
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+          <CompressPdf />
+        </main>
+      )}
+
+      {/* TAB 5: Split PDF */}
+      {activeTab === 'split-pdf' && (
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12 text-center py-20 space-y-4">
+          <h2 className="text-3xl font-extrabold text-slate-900">Split PDF Tool</h2>
+          <p className="text-slate-600 max-w-md mx-auto">Extract and split individual pages from your PDF documents securely in your browser.</p>
+          <div className="pt-4 max-w-xl mx-auto">
+            <CompressPdf />
+          </div>
+        </main>
+      )}
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
