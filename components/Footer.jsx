@@ -17,12 +17,12 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
-              {/* Exact Same Deep Blue SVG Logo as Header */}
+              {/* Circular SVG Logo */}
               <div className="w-10 h-10 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 100 100" className="w-full h-full text-[#033B70] fill-current">
-                  {/* Outer Circle Ring */}
+                <svg viewBox="0 0 100 100" className="w-full h-full text-blue-500 fill-current">
+                  {/* Outer Ring */}
                   <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="9" />
-                  {/* Inner GD Text */}
+                  {/* GD Text */}
                   <text x="50" y="63" fontSize="42" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" letterSpacing="-1">
                     GD
                   </text>
@@ -30,7 +30,6 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-lg font-bold text-white tracking-tight">GD PDF Suite</span>
-                <span className="block text-[11px] text-blue-400 font-medium">by GD Dream Career</span>
               </div>
             </div>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
@@ -68,7 +67,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
-          <p>© {currentYear} GD PDF Suite. Powered by GD Dream Career. All rights reserved.</p>
+          <p>© {currentYear} GD PDF Suite. All rights reserved.</p>
           <p className="flex items-center space-x-1.5 font-medium">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />

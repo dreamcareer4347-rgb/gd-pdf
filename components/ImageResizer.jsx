@@ -329,7 +329,7 @@ export default function ImageResizer() {
         <ul className="list-disc pl-5 space-y-1.5 leading-relaxed">
           <li><strong>Exact KB Compression:</strong> Resize and compress photos to fit stringent online job applications and government form guidelines.</li>
           <li><strong>100% Private & Secure:</strong> All image resizing takes place locally in your browser. Files never leave your device.</li>
-          <li><strong>Powered by GD Dream Career:</strong> Built for high performance and lightning-fast speed across mobile and desktop devices.</li>
+          <li><strong>Powered by GD :</strong> Built for high performance and lightning-fast speed across mobile and desktop devices.</li>
         </ul>
       </section>
     </div>

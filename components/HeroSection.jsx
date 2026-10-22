@@ -18,7 +18,7 @@ export default function HeroSection({ onGetStarted }) {
               </text>
             </svg>
           </div>
-          <span>GD PDF Suite by GD Dream Career</span>
+          <span>GD PDF Suite</span>
         </div>
 
         {/* Main SEO Headline */}

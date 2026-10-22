@@ -21,7 +21,7 @@ export default function Header({ activeTab = 'image-to-pdf', setActiveTab = () =
             onClick={() => setActiveTab('image-to-pdf')}
             className="flex items-center space-x-2.5 cursor-pointer group"
           >
-            {/* Pure SVG GD Circle Logo (No blurry background issue) */}
+            {/* Pure SVG GD Circle Logo */}
             <div className="w-10 h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <svg viewBox="0 0 100 100" className="w-full h-full text-[#033B70] fill-current">
                 {/* Outer Ring */}
@@ -35,9 +35,6 @@ export default function Header({ activeTab = 'image-to-pdf', setActiveTab = () =
 
             <div className="flex items-center space-x-2">
               <span className="text-xl font-extrabold tracking-tight text-slate-950">GD PDF</span>
-              <span className="hidden sm:inline-block px-2.5 py-0.5 text-xs font-bold bg-blue-50 text-blue-700 rounded-full border border-blue-100">
-                by GD Dream Career
-              </span>
             </div>
           </div>
 

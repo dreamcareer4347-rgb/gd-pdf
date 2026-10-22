@@ -1,28 +1,45 @@
-// app/layout.js
 import './globals.css';
+import SeoSchema from '@/components/SeoSchema';
 
 export const metadata = {
-  title: 'GD PDF Suite — Free Online PDF Tools by GD Dream Career',
-  description: 'Convert Images to PDF, compress PDF size, and resize pictures securely in your browser. 100% client-side privacy.',
-  keywords: ['Picture to PDF', 'Image to PDF', 'Compress PDF', 'Resize Image KB', 'GD PDF Suite', 'GD Dream Career'],
+  title: 'GD PDF Suite — Free Online Image to PDF & Compressor Tools',
+  description: 'Convert Images to PDF, compress PDF size, and resize pictures securely in your browser. 100% client-side privacy with zero server uploads.',
+  keywords: [
+    'Picture to PDF',
+    'Image to PDF',
+    'Compress PDF',
+    'Resize Image KB',
+    'Merge PDF Online',
+    'GD PDF Suite',
+    'GD PDF',
+    'Free PDF Converter'
+  ],
+  manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/gd-logo.png',
+    apple: '/gd-logo.png',
   },
   openGraph: {
     title: 'GD PDF Suite — Free Online PDF Utility',
     description: '100% client-side PDF converter & image resizer. Zero server uploads.',
-    url: 'https://gdpdfsuite.com', // Aapka final domain
+    url: 'https://gdpdf.online',
     siteName: 'GD PDF Suite',
     locale: 'en_US',
     type: 'website',
   },
 };
 
+export const viewport = {
+  themeColor: '#033B70',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased bg-white text-slate-900">{children}</body>
+      <body className="antialiased bg-white text-slate-900">
+        <SeoSchema />
+        {children}
+      </body>
     </html>
   );
 }

@@ -334,7 +334,7 @@ export default function CompressPdf() {
           <li><strong>100% Privacy Protection:</strong> Your documents are processed entirely in your web browser. No files are uploaded to any external server.</li>
           <li><strong>Target Size Optimization:</strong> Choose exact target file sizes such as 100KB, 200KB, or 500KB to fulfill online form and job application limits.</li>
           <li><strong>Mobile & Desktop Friendly:</strong> Optimized for smooth performance across smartphones, tablets, laptops, and PCs.</li>
-          <li><strong>Brought to you by GD Dream Career:</strong> A trusted utility platform built for high speed and zero registration requirements.</li>
+          <li><strong>Brought to you by GD :</strong> A trusted utility platform built for high speed and zero registration requirements.</li>
         </ul>
       </section>
     </div>
