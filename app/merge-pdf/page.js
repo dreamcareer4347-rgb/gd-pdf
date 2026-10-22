@@ -1,4 +1,4 @@
-import MergePdfTool from '@/components/MergePdf'; // Aapka existing Merge PDF component
+import MergePdfTool from '@/components/MergePdf';
 
 export const metadata = {
   title: 'Merge PDF Files Online Free — GD PDF',

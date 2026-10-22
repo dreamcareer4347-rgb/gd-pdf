@@ -1,4 +1,4 @@
-import ImageToPdfTool from '@/components/ImageToPdfTool'; // Aapka existing Image to PDF component
+import Home from '@/app/page';
 
 export const metadata = {
   title: 'Convert Image to PDF Online Free — GD PDF',
@@ -12,19 +12,5 @@ export const metadata = {
 };
 
 export default function ImageToPdfPage() {
-  return (
-    <main className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
-          Convert Images to PDF Online
-        </h1>
-        <p className="text-center text-slate-600 text-sm mb-8 max-w-xl mx-auto">
-          Fast, free, and 100% private. Combine multiple pictures into a single high-quality PDF document.
-        </p>
-        
-        {/* Render Tool Component */}
-        <ImageToPdfTool />
-      </div>
-    </main>
-  );
+  return <Home defaultTab="image-to-pdf" />;
 }

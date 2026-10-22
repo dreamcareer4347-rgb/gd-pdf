@@ -1,4 +1,4 @@
-import CompressPdfTool from '@/components/CompressPdf'; // Aapka existing Compress PDF component
+import CompressPdfTool from '@/components/CompressPdf';
 
 export const metadata = {
   title: 'Compress PDF Online to Target KB — GD PDF',

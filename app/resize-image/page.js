@@ -1,4 +1,4 @@
-import ImageResizerTool from '@/components/ImageResizer'; // Aapka existing Image Resizer component
+import ImageResizerTool from '@/components/ImageResizer';
 
 export const metadata = {
   title: 'Resize Image KB & Dimensions Online — GD PDF',
