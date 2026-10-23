@@ -19,9 +19,10 @@ export default function ResizeImagePage() {
       <Header />
       <main className="flex-grow py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
+          {/* Main tool heading changed to h2 to avoid duplicate h1 tags */}
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
             Resize Image KB & Pixels
-          </h1>
+          </h2>
           <p className="text-center text-slate-600 text-sm mb-8 max-w-xl mx-auto">
             Modify image dimensions (width/height) and file size for official application forms and documents.
           </p>
@@ -30,14 +31,14 @@ export default function ResizeImagePage() {
 
           {/* On-Page FAQs */}
           <section className="max-w-4xl mx-auto mt-16 pt-12 border-t border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Frequently Asked Questions</h2>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Frequently Asked Questions</h3>
             <div className="space-y-4">
               <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
-                <h3 className="font-bold text-slate-900 text-base mb-1">How do I resize a photo for online application forms?</h3>
+                <h4 className="font-bold text-slate-900 text-base mb-1">How do I resize a photo for online application forms?</h4>
                 <p className="text-sm text-slate-600">Upload your picture, enter the exact target width, height, or target KB size specified in the form requirements, and click Resize to download your perfectly adjusted image.</p>
               </div>
               <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
-                <h3 className="font-bold text-slate-900 text-base mb-1">Which image formats are supported?</h3>
+                <h4 className="font-bold text-slate-900 text-base mb-1">Which image formats are supported?</h4>
                 <p className="text-sm text-slate-600">GD PDF supports popular formats including JPG, JPEG, PNG, and WebP for fast client-side resizing.</p>
               </div>
             </div>
