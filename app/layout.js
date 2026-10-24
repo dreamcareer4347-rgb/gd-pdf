@@ -40,9 +40,14 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased bg-white text-slate-900">
+      <body className="antialiased bg-white text-slate-900 flex flex-col min-h-screen">
         <SeoSchema />
-        {children}
+        
+        {/* Main Content Area (Pages will manage their own Header/Footer for precise state control) */}
+        <div className="flex-grow">
+          {children}
+        </div>
+
         <Analytics />
       </body>
     </html>

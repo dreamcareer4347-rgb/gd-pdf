@@ -138,106 +138,101 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
-      {/* Header with Navigation Tabs & Mobile Bottom Bar */}
+    <div className="flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen">
+      {/* Header with Active Tabs State */}
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* TAB 1: Picture to PDF */}
-      {activeTab === 'image-to-pdf' && (
-        <>
-          {/* Professional Hero Section */}
-          <HeroSection 
-            onGetStarted={() => {
-              const element = document.getElementById('converter-workspace');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }} 
-          />
+      <div className="flex-grow">
+        {/* TAB 1: Picture to PDF */}
+        {activeTab === 'image-to-pdf' && (
+          <>
+            <HeroSection 
+              onGetStarted={() => {
+                const element = document.getElementById('converter-workspace');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }} 
+            />
 
-          {/* Main Converter Workspace */}
-          <main id="converter-workspace" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-            {images.length === 0 ? (
-              <UploadArea onImagesAdded={handleImagesAdded} />
-            ) : (
-              <div className="space-y-8 animate-fade-in">
-                {/* Image List Workspace */}
-                <ImageList
-                  images={images}
-                  onRemove={handleRemoveImage}
-                  onClearAll={handleClearAll}
-                  onRotate={handleRotateImage}
-                  onMoveUp={handleMoveUp}
-                  onMoveDown={handleMoveDown}
-                  onAddMoreClick={() => {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.multiple = true;
-                    input.accept = 'image/jpeg,image/png,image/webp';
-                    input.onchange = (e) => {
-                      if (e.target.files) {
-                        handleAddMoreFiles(Array.from(e.target.files));
-                      }
-                    };
-                    input.click();
-                  }}
-                />
+            <main id="converter-workspace" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+              {images.length === 0 ? (
+                <UploadArea onImagesAdded={handleImagesAdded} />
+              ) : (
+                <div className="space-y-8 animate-fade-in">
+                  <ImageList
+                    images={images}
+                    onRemove={handleRemoveImage}
+                    onClearAll={handleClearAll}
+                    onRotate={handleRotateImage}
+                    onMoveUp={handleMoveUp}
+                    onMoveDown={handleMoveDown}
+                    onAddMoreClick={() => {
+                      const input = document.createElement('input');
+                      input.type = 'file';
+                      input.multiple = true;
+                      input.accept = 'image/jpeg,image/png,image/webp';
+                      input.onchange = (e) => {
+                        if (e.target.files) {
+                          handleAddMoreFiles(Array.from(e.target.files));
+                        }
+                      };
+                      input.click();
+                    }}
+                  />
 
-                {/* PDF Settings */}
-                <PdfSettings settings={settings} onChange={setSettings} />
+                  <PdfSettings settings={settings} onChange={setSettings} />
 
-                {/* Live Preview */}
-                <PdfPreview images={images} settings={settings} />
+                  <PdfPreview images={images} settings={settings} />
 
-                {/* Download Panel & Conversion Trigger */}
-                <DownloadPanel
-                  onConvert={handleConvert}
-                  isConverting={isConverting}
-                  progress={progress}
-                  result={result}
-                  onReset={handleReset}
-                />
-              </div>
-            )}
+                  <DownloadPanel
+                    onConvert={handleConvert}
+                    isConverting={isConverting}
+                    progress={progress}
+                    result={result}
+                    onReset={handleReset}
+                  />
+                </div>
+              )}
+            </main>
+
+            <HowItWorks />
+            <FaqSection />
+          </>
+        )}
+
+        {/* TAB 2: Resize Image */}
+        {activeTab === 'resize-image' && (
+          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+            <ImageResizer />
           </main>
+        )}
 
-          {/* SEO Content Sections */}
-          <HowItWorks />
-          <FaqSection />
-        </>
-      )}
+        {/* TAB 3: Merge PDF */}
+        {activeTab === 'merge-pdf' && (
+          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
+            <MergePdf />
+          </main>
+        )}
 
-      {/* TAB 2: Resize Image */}
-      {activeTab === 'resize-image' && (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-          <ImageResizer />
-        </main>
-      )}
-
-      {/* TAB 3: Merge PDF */}
-      {activeTab === 'merge-pdf' && (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-          <MergePdf />
-        </main>
-      )}
-
-      {/* TAB 4: Compress PDF */}
-      {activeTab === 'compress-pdf' && (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-          <CompressPdf />
-        </main>
-      )}
-
-      {/* TAB 5: Split PDF */}
-      {activeTab === 'split-pdf' && (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12 text-center py-20 space-y-4">
-          <h2 className="text-3xl font-extrabold text-slate-900">Split PDF Tool</h2>
-          <p className="text-slate-600 max-w-md mx-auto">Extract and split individual pages from your PDF documents securely in your browser.</p>
-          <div className="pt-4 max-w-xl mx-auto">
+        {/* TAB 4: Compress PDF */}
+        {activeTab === 'compress-pdf' && (
+          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
             <CompressPdf />
-          </div>
-        </main>
-      )}
+          </main>
+        )}
+
+        {/* TAB 5: Split PDF */}
+        {activeTab === 'split-pdf' && (
+          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12 text-center py-20 space-y-4">
+            <h2 className="text-3xl font-extrabold text-slate-900">Split PDF Tool</h2>
+            <p className="text-slate-600 max-w-md mx-auto">Extract and split individual pages from your PDF documents securely in your browser.</p>
+            <div className="pt-4 max-w-xl mx-auto">
+              <CompressPdf />
+            </div>
+          </main>
+        )}
+      </div>
 
       {/* Footer */}
       <Footer />

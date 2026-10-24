@@ -106,7 +106,7 @@ export default function CompressPdf() {
     '@type': 'WebApplication',
     'name': 'GD PDF Compress Tool',
     'url': 'https://gdpdf.com/compress-pdf',
-    'description': 'Free online PDF compressor tool by GD PDF Suite & GD Dream Career. Reduce PDF size to 100KB, 200KB, 500KB or custom MBs directly in browser.',
+    'description': 'Free online PDF compressor tool by GD PDF Suite. Reduce PDF size to 100KB, 200KB, 500KB or custom MBs directly in browser.',
     'applicationCategory': 'BusinessApplication',
     'operatingSystem': 'All',
     'offers': {
@@ -128,7 +128,7 @@ export default function CompressPdf() {
       <div className="text-center space-y-3">
         <div className="inline-flex items-center space-x-2 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-blue-700 text-xs font-bold tracking-wide">
           <Zap className="w-3.5 h-3.5" />
-          <span>GD PDF Tools by GD Dream Career</span>
+          <span>GD PDF Suite Tools by GD </span>
         </div>
         
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
