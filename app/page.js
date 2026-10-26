@@ -11,6 +11,33 @@ import DownloadPanel from '@/components/DownloadPanel';
 import MergePdf from '@/components/MergePdf';
 import CompressPdf from '@/components/CompressPdf';
 import ImageResizer from '@/components/ImageResizer';
+import EcommerceResizer from '@/components/EcommerceResizer';
+import HeicConverter from '@/components/HeicConverter';
+import PptToPdf from '@/components/PptToPdf';
+import ImageToPng from '@/components/ImageToPng';
+
+// Document & Photo Tools
+import CustomExamResizer from '@/components/CustomExamResizer';
+import NdaAgeCalculator from '@/components/NdaAgeCalculator';
+import AddNameAndDate from '@/components/AddNameAndDate';
+import GenerateSignature from '@/components/GenerateSignature';
+import SignatureSixByTwo from '@/components/SignatureSixByTwo';
+import PassportPhotoMaker from '@/components/PassportPhotoMaker';
+import ImageToJpg from '@/components/ImageToJpg';
+import MergeImages from '@/components/MergeImages';
+
+// Office Document Converters
+import WordToPdf from '@/components/WordToPdf';
+import ExcelToPdf from '@/components/ExcelToPdf';
+import HtmlToPdf from '@/components/HtmlToPdf';
+
+// Convert from PDF Suite
+import PdfToJpg from '@/components/PdfToJpg';
+import PdfToWord from '@/components/PdfToWord';
+import PdfToPpt from '@/components/PdfToPpt';
+import PdfToExcel from '@/components/PdfToExcel';
+import PdfToPdfA from '@/components/PdfToPdfA';
+
 import HowItWorks from '@/components/HowItWorks';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
@@ -34,13 +61,11 @@ export default function Home() {
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
 
-  // Add images
   const handleImagesAdded = (newImages) => {
     setImages((prev) => [...prev, ...newImages]);
     setResult(null);
   };
 
-  // Remove single image
   const handleRemoveImage = (id) => {
     setImages((prev) => {
       const target = prev.find((img) => img.id === id);
@@ -50,14 +75,12 @@ export default function Home() {
     setResult(null);
   };
 
-  // Clear all images
   const handleClearAll = () => {
     images.forEach((img) => URL.revokeObjectURL(img.url));
     setImages([]);
     setResult(null);
   };
 
-  // Rotate image 90 degrees
   const handleRotateImage = (id) => {
     setImages((prev) =>
       prev.map((img) =>
@@ -66,7 +89,6 @@ export default function Home() {
     );
   };
 
-  // Move up
   const handleMoveUp = (index) => {
     if (index === 0) return;
     setImages((prev) => {
@@ -78,7 +100,6 @@ export default function Home() {
     });
   };
 
-  // Move down
   const handleMoveDown = (index) => {
     if (index === images.length - 1) return;
     setImages((prev) => {
@@ -90,10 +111,8 @@ export default function Home() {
     });
   };
 
-  // Convert to PDF action
   const handleConvert = async () => {
     if (images.length === 0) return;
-
     setIsConverting(true);
     setProgress(0);
     setResult(null);
@@ -104,11 +123,10 @@ export default function Home() {
         settings,
         onProgress: (p) => setProgress(p),
       });
-
       setResult(pdfResult);
     } catch (error) {
       console.error('PDF Generation Error:', error);
-      alert('Failed to generate PDF. Please try again with smaller or fewer images.');
+      alert('Failed to generate PDF. Please try again.');
     } finally {
       setIsConverting(false);
     }
@@ -139,19 +157,16 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen">
-      {/* Header with Active Tabs State */}
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="flex-grow">
-        {/* TAB 1: Picture to PDF */}
+        {/* TAB 1: Image to PDF */}
         {activeTab === 'image-to-pdf' && (
           <>
             <HeroSection 
               onGetStarted={() => {
                 const element = document.getElementById('converter-workspace');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
               }} 
             />
 
@@ -173,18 +188,13 @@ export default function Home() {
                       input.multiple = true;
                       input.accept = 'image/jpeg,image/png,image/webp';
                       input.onchange = (e) => {
-                        if (e.target.files) {
-                          handleAddMoreFiles(Array.from(e.target.files));
-                        }
+                        if (e.target.files) handleAddMoreFiles(Array.from(e.target.files));
                       };
                       input.click();
                     }}
                   />
-
                   <PdfSettings settings={settings} onChange={setSettings} />
-
                   <PdfPreview images={images} settings={settings} />
-
                   <DownloadPanel
                     onConvert={handleConvert}
                     isConverting={isConverting}
@@ -195,46 +205,43 @@ export default function Home() {
                 </div>
               )}
             </main>
-
             <HowItWorks />
             <FaqSection />
           </>
         )}
 
-        {/* TAB 2: Resize Image */}
-        {activeTab === 'resize-image' && (
-          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-            <ImageResizer />
-          </main>
-        )}
+        {/* Standard PDF & Image Utilities */}
+        {activeTab === 'resize-image' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageResizer /></main>}
+        {activeTab === 'compress-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><CompressPdf /></main>}
+        {activeTab === 'merge-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><MergePdf /></main>}
+        {activeTab === 'ecommerce-resizer' && <main className="max-w-5xl mx-auto px-4 py-12"><EcommerceResizer /></main>}
+        {activeTab === 'heic-converter' && <main className="max-w-5xl mx-auto px-4 py-12"><HeicConverter /></main>}
+        {activeTab === 'ppt-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><PptToPdf /></main>}
+        {activeTab === 'image-to-png' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageToPng /></main>}
 
-        {/* TAB 3: Merge PDF */}
-        {activeTab === 'merge-pdf' && (
-          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-            <MergePdf />
-          </main>
-        )}
+        {/* Govt Exam & Document Photo Tools */}
+        {activeTab === 'custom-exam-resizer' && <main className="max-w-5xl mx-auto px-4 py-12"><CustomExamResizer /></main>}
+        {activeTab === 'nda-age-calc' && <main className="max-w-5xl mx-auto px-4 py-12"><NdaAgeCalculator /></main>}
+        {activeTab === 'add-name-date' && <main className="max-w-5xl mx-auto px-4 py-12"><AddNameAndDate /></main>}
+        {activeTab === 'generate-sign' && <main className="max-w-5xl mx-auto px-4 py-12"><GenerateSignature /></main>}
+        {activeTab === 'sign-6x2' && <main className="max-w-5xl mx-auto px-4 py-12"><SignatureSixByTwo /></main>}
+        {activeTab === 'passport-maker' && <main className="max-w-5xl mx-auto px-4 py-12"><PassportPhotoMaker /></main>}
+        {activeTab === 'image-to-jpg' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageToJpg /></main>}
+        {activeTab === 'merge-images' && <main className="max-w-5xl mx-auto px-4 py-12"><MergeImages /></main>}
 
-        {/* TAB 4: Compress PDF */}
-        {activeTab === 'compress-pdf' && (
-          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12">
-            <CompressPdf />
-          </main>
-        )}
+        {/* Office Document Converters */}
+        {activeTab === 'word-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><WordToPdf /></main>}
+        {activeTab === 'excel-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><ExcelToPdf /></main>}
+        {activeTab === 'html-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><HtmlToPdf /></main>}
 
-        {/* TAB 5: Split PDF */}
-        {activeTab === 'split-pdf' && (
-          <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-12 text-center py-20 space-y-4">
-            <h2 className="text-3xl font-extrabold text-slate-900">Split PDF Tool</h2>
-            <p className="text-slate-600 max-w-md mx-auto">Extract and split individual pages from your PDF documents securely in your browser.</p>
-            <div className="pt-4 max-w-xl mx-auto">
-              <CompressPdf />
-            </div>
-          </main>
-        )}
+        {/* Convert from PDF Suite */}
+        {activeTab === 'pdf-to-jpg' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToJpg /></main>}
+        {activeTab === 'pdf-to-word' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToWord /></main>}
+        {activeTab === 'pdf-to-ppt' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPpt /></main>}
+        {activeTab === 'pdf-to-excel' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToExcel /></main>}
+        {activeTab === 'pdf-to-pdfa' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPdfA /></main>}
       </div>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

@@ -13,6 +13,15 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-400 py-12 pb-24 lg:pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Comprehensive SEO Informational Section for the Entire Suite */}
+        <div className="mb-12 pb-8 border-b border-slate-800 space-y-3">
+          <h2 className="text-sm font-extrabold text-white uppercase tracking-wider">About GD PDF Suite — Free Online Document & Photo Tools</h2>
+          <p className="text-xs leading-relaxed text-slate-400">
+            GD PDF Suite is your all-in-one, 100% free browser-based utility platform designed for fast and secure document management. Whether you need to convert pictures to PDF, compress PDF files to specific KB limits, merge multiple photos or PDFs, resize images for government exam forms (UPSC, SSC, banking), calculate exact NDA exam age eligibility, create professional passport photo print sheets, format 6×2 cm signatures, or convert office documents like Word, Excel, PowerPoint, and HTML to PDF securely—everything runs completely client-side on your device with absolute privacy and zero server uploads.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
@@ -39,7 +48,7 @@ export default function Footer() {
 
           {/* Quick Tools & Formats */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">PDF & Image Tools</h4>
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">PDF & Image Tools</h3>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li className="hover:text-white transition-colors cursor-pointer">Picture to PDF Converter</li>
               <li className="hover:text-white transition-colors cursor-pointer">Compress PDF to Target KB</li>
@@ -50,7 +59,7 @@ export default function Footer() {
 
           {/* Privacy & Security */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Privacy & Security</h4>
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Privacy & Security</h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               <li className="flex items-center space-x-2">
                 <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
