@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, Download, Type, CheckCircle, RefreshCw, Calendar, User, Sliders, ZoomIn, ZoomOut } from 'lucide-react';
+import { Upload, Download, Type, RefreshCw, ZoomIn, ZoomOut, Sliders } from 'lucide-react';
 
 export default function AddNameAndDate() {
   const [image, setImage] = useState(null);
@@ -10,7 +10,7 @@ export default function AddNameAndDate() {
   const [dob, setDob] = useState('');
   const [targetKb, setTargetKb] = useState(50);
   
-  // Zoom & Pan for precise adjustment like the screenshot
+  // Zoom & Pan for precise adjustment
   const [zoom, setZoom] = useState(1);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
@@ -94,7 +94,7 @@ export default function AddNameAndDate() {
     ctx.textAlign = 'center';
 
     const nameText = candidateName ? candidateName.toUpperCase() : 'NAME';
-    const dobText = dob ? `DOB: ${dob}` : 'DOB: DD-MM-YYYY';
+    const dobText = dob ? `DOB: ${dob.split('-').reverse().join('-')}` : 'DOB: DD-MM-YYYY';
 
     ctx.fillText(nameText, baseWidth / 2, baseHeight + 35);
     ctx.font = 'bold 14px Arial';
@@ -167,7 +167,7 @@ export default function AddNameAndDate() {
         </label>
       ) : (
         <div className="space-y-6">
-          {/* Interactive Crop / Adjustment Box matching reference */}
+          {/* Interactive Crop / Adjustment Box */}
           <div className="bg-slate-800 p-6 rounded-2xl flex flex-col items-center justify-center space-y-4">
             <div className="text-xs font-bold text-slate-300 uppercase tracking-wide">Adjust Photo Frame (Drag & Zoom)</div>
             
@@ -195,13 +195,13 @@ export default function AddNameAndDate() {
             </div>
           </div>
 
-          {/* Form Inputs matching screenshot */}
+          {/* Form Inputs */}
           <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-200">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">Candidate Name:</label>
               <input
                 type="text"
-                placeholder="e.g. SACHIN SAINI"
+                placeholder="e.g. Dev Sharma"
                 value={candidateName}
                 onChange={(e) => setCandidateName(e.target.value)}
                 className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-800 focus:outline-blue-600 uppercase"

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import Header from '@/components/Header';
+import React, { useState, useEffect } from 'react';
+import Header from '@/components/Header'; // <-- Header yahan import kiya hai
 import HeroSection from '@/components/HeroSection';
 import UploadArea from '@/components/UploadArea';
 import ImageList from '@/components/ImageList';
@@ -44,6 +44,22 @@ import { loadImage } from '@/utils/imageUtils';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('image-to-pdf');
+
+  // Page refresh ya load hone par hash detect karne ke liye
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setActiveTab(hash);
+      } else {
+        setActiveTab('image-to-pdf');
+      }
+    };
+
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
 
   // Picture to PDF state
   const [images, setImages] = useState([]);
@@ -154,7 +170,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen">
-      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      {/* Header component yahan add kar diya hai */}
+      <Header />
 
       <div className="flex-grow">
         {/* TAB 1: Image to PDF */}

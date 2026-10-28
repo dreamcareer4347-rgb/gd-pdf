@@ -91,7 +91,7 @@ export default function PassportPhotoMaker() {
         ctx.restore();
 
         // Border around each passport photo
-        ctx.strokeStyle = '#E2E8F0';
+        ctx.strokeStyle = '#CBD5E1';
         ctx.lineWidth = 2;
         ctx.strokeRect(x, y, pWidth, pHeight);
 

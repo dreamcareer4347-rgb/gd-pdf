@@ -3,35 +3,26 @@ export default async function sitemap() {
 
   const tools = [
     '',
-    '/image-to-pdf',
-    '/word-to-pdf',
-    '/excel-to-pdf',
-    '/ppt-to-pdf',
-    '/html-to-pdf',
-    '/pdf-to-jpg',
-    '/pdf-to-word',
-    '/pdf-to-ppt',
-    '/pdf-to-excel',
-    '/pdf-to-pdfa',
-    '/custom-exam-resizer',
-    '/nda-age-calc',
-    '/add-name-date',
-    '/generate-sign',
-    '/sign-6x2',
-    '/passport-maker',
-    '/image-to-jpg',
-    '/merge-images',
-    '/resize-image',
     '/compress-pdf',
+    '/compress-pdf-100kb',
+    '/compress-pdf-200kb',
+    '/ilovepdf-alternative',
+    '/image-to-pdf',
+    '/iphone-photo-converter',
     '/merge-pdf',
-    '/ecommerce-resizer',
-    '/heic-converter',
-    '/image-to-png'
+    '/name-dob-photo',
+    '/nda-age-calculator',
+    '/passport-photo-maker',
+    '/resize-image',
+    '/resize-image-for-form',
+    '/signature-6x2-cm',
   ];
+
+  const currentDate = new Date();
 
   return tools.map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: currentDate,
     changeFrequency: route === '' ? 'daily' : 'weekly',
     priority: route === '' ? 1.0 : 0.8,
   }));

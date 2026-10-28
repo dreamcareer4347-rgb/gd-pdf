@@ -5,6 +5,9 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata = {
   title: 'GD PDF Suite — Free Online Image to PDF & Compressor Tools',
   description: 'Convert Images to PDF, compress PDF size, and resize pictures securely in your browser. 100% client-side privacy with zero server uploads.',
+  authors: [{ name: 'Dev Sharma', url: 'https://gdpdf.online' }],
+  creator: 'Dev Sharma',
+  publisher: 'GD PDF Suite',
   keywords: [
     'Picture to PDF',
     'Image to PDF',
@@ -43,7 +46,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased bg-white text-slate-900 flex flex-col min-h-screen">
         <SeoSchema />
         
-        {/* Main Content Area (Pages will manage their own Header/Footer for precise state control) */}
+        {/* Main Content Area (Header ab individual pages par handle ho raha hai) */}
         <div className="flex-grow">
           {children}
         </div>
