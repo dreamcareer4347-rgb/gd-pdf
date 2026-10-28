@@ -54,15 +54,12 @@ export default function Header({ activeTab, setActiveTab }) {
   const convertToPdfTools = [
     { id: 'word-to-pdf', label: 'Word to PDF', icon: FileText },
     { id: 'excel-to-pdf', label: 'Excel to PDF', icon: FileSpreadsheet },
-    { id: 'ppt-to-pdf', label: 'PPT to PDF', icon: Presentation },
     { id: 'html-to-pdf', label: 'HTML to PDF', icon: Code },
   ];
 
   const convertFromPdfTools = [
     { id: 'pdf-to-jpg', label: 'PDF to JPG', icon: FileImage },
     { id: 'pdf-to-word', label: 'PDF to WORD', icon: FileText },
-    { id: 'pdf-to-ppt', label: 'PDF to POWERPOINT', icon: Presentation },
-    { id: 'pdf-to-excel', label: 'PDF to EXCEL', icon: FileSpreadsheet },
     { id: 'pdf-to-pdfa', label: 'PDF to PDF/A', icon: ShieldCheck },
   ];
 
@@ -253,7 +250,7 @@ export default function Header({ activeTab, setActiveTab }) {
         </div>
       </header>
 
-      {/* Mobile Horizontal Quick Scroll Bar (Visible right under header on mobile so users don't need to click 3 lines) */}
+      {/* Mobile Horizontal Quick Scroll Bar */}
       <div className="xl:hidden bg-slate-50 border-b border-slate-200 px-3 py-2 overflow-x-auto flex space-x-2 scrollbar-none shrink-0">
         {quickMobileTools.map((item) => {
           const Icon = item.icon;
@@ -273,11 +270,10 @@ export default function Header({ activeTab, setActiveTab }) {
         })}
       </div>
 
-      {/* Mobile Menu Modal (When "All Tools" is clicked) */}
+      {/* Mobile Menu Modal */}
       {mobileMenuOpen && (
         <div className="xl:hidden absolute top-28 left-0 w-full bg-white border-b border-slate-200 shadow-2xl py-6 px-5 space-y-6 z-50 max-h-[80vh] overflow-y-auto">
           
-          {/* Govt Exam & Photos */}
           <div>
             <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">🎯 Govt Exam & Photo Tools (SSC/NEET/UPSC)</p>
             <div className="grid grid-cols-1 gap-1.5">
@@ -299,7 +295,6 @@ export default function Header({ activeTab, setActiveTab }) {
             </div>
           </div>
 
-          {/* Convert to PDF */}
           <div>
             <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">📁 Convert to PDF</p>
             <div className="grid grid-cols-1 gap-1.5">
@@ -321,7 +316,6 @@ export default function Header({ activeTab, setActiveTab }) {
             </div>
           </div>
 
-          {/* Convert from PDF */}
           <div>
             <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">🔄 Convert from PDF</p>
             <div className="grid grid-cols-1 gap-1.5">

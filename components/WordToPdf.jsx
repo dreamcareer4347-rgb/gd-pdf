@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Upload, Download, FileText, CheckCircle, RefreshCw, Trash2 } from 'lucide-react';
-import { jsPDF } from 'jspdf';
+import React, { useState, useRef } from 'react';
+import { Upload, Download, FileText, CheckCircle, RefreshCw, Trash2, Printer } from 'lucide-react';
 import mammoth from 'mammoth';
 
 export default function WordToPdf() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [processedUrl, setProcessedUrl] = useState('');
+  const [htmlContent, setHtmlContent] = useState('');
+  const previewRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -21,68 +21,80 @@ export default function WordToPdf() {
       ) {
         setFile(selectedFile);
         setFileName(selectedFile.name);
-        setProcessedUrl('');
+        setHtmlContent('');
+        setIsProcessing(true);
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          try {
+            const arrayBuffer = event.target.result;
+            // Convert docx to HTML preserving styling, tables and headings
+            const result = await mammoth.convertToHtml({ arrayBuffer });
+            setHtmlContent(result.value);
+          } catch (err) {
+            console.error('HTML preview extraction failed:', err);
+            alert('Failed to parse Word document structure.');
+          } finally {
+            setIsProcessing(false);
+          }
+        };
+        reader.readAsArrayBuffer(selectedFile);
       } else {
         alert('Please select a valid Word document (.docx or .doc).');
       }
     }
   };
 
-  const convertWordToPdf = async () => {
-    if (!file) return;
-    setIsProcessing(true);
-
-    try {
-      const arrayBuffer = await file.arrayBuffer();
-      // Extract raw text and structure from docx using mammoth
-      const result = await mammoth.extractRawText({ arrayBuffer });
-      const text = result.value;
-
-      // Create PDF using jsPDF
-      const doc = new jsPDF({
-        orientation: 'p',
-        unit: 'mm',
-        format: 'a4',
-      });
-
-      const margins = 15;
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-      const maxLineWidth = pageWidth - margins * 2;
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(11);
-
-      // Split text into multiline paragraphs
-      const lines = doc.splitTextToSize(text, maxLineWidth);
-      let cursorY = margins;
-
-      lines.forEach((line) => {
-        if (cursorY + 7 > pageHeight - margins) {
-          doc.addPage();
-          cursorY = margins;
-        }
-        doc.text(line, margins, cursorY);
-        cursorY += 6;
-      });
-
-      const pdfBlob = doc.output('blob');
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-
-      setProcessedUrl(pdfUrl);
-    } catch (error) {
-      console.error('Word to PDF conversion failed:', error);
-      alert('Failed to convert Word document. Please ensure it is a valid .docx file.');
-    } finally {
-      setIsProcessing(false);
+  // Uses browser's high-fidelity print engine to save as exact layout PDF
+  const handlePrintToPdf = () => {
+    if (!previewRef.current) return;
+    
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Please allow popups for this website to export PDF.');
+      return;
     }
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${fileName.replace(/\.[^/.]+$/, '')} - GD PDF Suite</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              color: #111827;
+              line-height: 1.6;
+              padding: 40px;
+              max-width: 800px;
+              margin: 0 auto;
+            }
+            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+            th, td { border: 1px solid #d1d5db; padding: 8px 12px; text-align: left; }
+            h1, h2, h3 { color: #1f2937; margin-top: 24px; }
+            p { margin-bottom: 12px; }
+            @media print {
+              body { padding: 0; }
+            }
+          </style>
+        </head>
+        <body>
+          ${htmlContent}
+          <script>
+            window.onload = function() {
+              window.print();
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   const handleReset = () => {
-    if (processedUrl) URL.revokeObjectURL(processedUrl);
     setFile(null);
     setFileName('');
-    setProcessedUrl('');
+    setHtmlContent('');
   };
 
   return (
@@ -96,7 +108,7 @@ export default function WordToPdf() {
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">WORD to PDF Converter Online</h1>
           <p className="text-xs sm:text-sm text-slate-500">
-            Convert Microsoft Word (.docx / .doc) documents to PDF format securely inside your browser with complete privacy and zero server uploads.
+            Convert Microsoft Word (.docx / .doc) documents into clean, properly aligned PDF files instantly using browser rendering.
           </p>
         </div>
       </div>
@@ -107,7 +119,7 @@ export default function WordToPdf() {
             <Upload className="w-8 h-8" />
           </div>
           <span className="text-base font-bold text-slate-800 mb-1">Upload Word Document</span>
-          <span className="text-xs text-slate-500">Supports .docx files (100% Client-Side Private Processing)</span>
+          <span className="text-xs text-slate-500">Supports .docx files with clean formatting layout</span>
           <input type="file" accept=".docx,.doc" onChange={handleFileChange} className="hidden" />
         </label>
       ) : (
@@ -133,6 +145,23 @@ export default function WordToPdf() {
             </button>
           </div>
 
+          {/* Document Content Preview Box */}
+          <div className="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 max-h-96 overflow-y-auto">
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Extracted Document Preview:</div>
+            {isProcessing ? (
+              <div className="flex items-center justify-center py-10 space-x-2 text-slate-500 text-xs">
+                <RefreshCw className="w-4 h-4 animate-spin text-blue-600" />
+                <span>Reading document layout...</span>
+              </div>
+            ) : (
+              <div
+                ref={previewRef}
+                className="bg-white p-6 rounded-xl border border-slate-200 text-slate-800 text-sm leading-relaxed space-y-4 shadow-sm"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+            )}
+          </div>
+
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               onClick={handleReset}
@@ -142,43 +171,22 @@ export default function WordToPdf() {
             </button>
 
             <button
-              onClick={convertWordToPdf}
-              disabled={isProcessing}
+              onClick={handlePrintToPdf}
+              disabled={isProcessing || !htmlContent}
               className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md cursor-pointer text-xs disabled:opacity-50"
             >
-              {isProcessing ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
-              <span>{isProcessing ? 'Converting Word to PDF...' : 'Convert to PDF'}</span>
+              <Printer className="w-4 h-4" />
+              <span>Save / Download as PDF</span>
             </button>
           </div>
-
-          {processedUrl && (
-            <div className="mt-6 p-6 bg-emerald-50/60 border border-emerald-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-emerald-600 shrink-0" />
-                <div>
-                  <h4 className="text-sm font-bold text-emerald-900">Word Document Converted Successfully!</h4>
-                  <p className="text-xs text-emerald-700">Ready to view or download as PDF document.</p>
-                </div>
-              </div>
-
-              <a
-                href={processedUrl}
-                download={`${fileName.replace(/\.[^/.]+$/, '')}.pdf`}
-                className="w-full sm:w-auto flex items-center justify-center space-x-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm cursor-pointer"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download PDF</span>
-              </a>
-            </div>
-          )}
         </div>
       )}
 
       {/* SEO Informational Content Footer */}
       <div className="mt-12 pt-6 border-t border-slate-200 text-slate-500 text-xs space-y-2">
-        <h2 className="font-bold text-slate-700 text-sm">Convert Microsoft Word (.docx) to PDF Free Online</h2>
+        <h2 className="font-bold text-slate-700 text-sm">Convert Microsoft Word (.docx) to PDF Online</h2>
         <p>
-          Need to convert your Word documents into secure, universally readable PDF files? GD PDF Suite&apos;s Word to PDF converter extracts text content from your .docx files and generates professional PDF documents right inside your browser without uploading files to any external server.
+          Need to convert your Word documents into structured, professionally formatted PDF files? GD PDF Suite&apos;s Word to PDF converter retains your document&apos;s tables, headings, and layout formatting directly inside your browser with 100% data privacy.
         </p>
       </div>
 

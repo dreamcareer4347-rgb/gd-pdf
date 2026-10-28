@@ -13,7 +13,6 @@ import CompressPdf from '@/components/CompressPdf';
 import ImageResizer from '@/components/ImageResizer';
 import EcommerceResizer from '@/components/EcommerceResizer';
 import HeicConverter from '@/components/HeicConverter';
-import PptToPdf from '@/components/PptToPdf';
 import ImageToPng from '@/components/ImageToPng';
 
 // Document & Photo Tools
@@ -34,8 +33,6 @@ import HtmlToPdf from '@/components/HtmlToPdf';
 // Convert from PDF Suite
 import PdfToJpg from '@/components/PdfToJpg';
 import PdfToWord from '@/components/PdfToWord';
-import PdfToPpt from '@/components/PdfToPpt';
-import PdfToExcel from '@/components/PdfToExcel';
 import PdfToPdfA from '@/components/PdfToPdfA';
 
 import HowItWorks from '@/components/HowItWorks';
@@ -216,7 +213,6 @@ export default function Home() {
         {activeTab === 'merge-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><MergePdf /></main>}
         {activeTab === 'ecommerce-resizer' && <main className="max-w-5xl mx-auto px-4 py-12"><EcommerceResizer /></main>}
         {activeTab === 'heic-converter' && <main className="max-w-5xl mx-auto px-4 py-12"><HeicConverter /></main>}
-        {activeTab === 'ppt-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><PptToPdf /></main>}
         {activeTab === 'image-to-png' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageToPng /></main>}
 
         {/* Govt Exam & Document Photo Tools */}
@@ -237,8 +233,6 @@ export default function Home() {
         {/* Convert from PDF Suite */}
         {activeTab === 'pdf-to-jpg' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToJpg /></main>}
         {activeTab === 'pdf-to-word' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToWord /></main>}
-        {activeTab === 'pdf-to-ppt' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPpt /></main>}
-        {activeTab === 'pdf-to-excel' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToExcel /></main>}
         {activeTab === 'pdf-to-pdfa' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPdfA /></main>}
       </div>
 
