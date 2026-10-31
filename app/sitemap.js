@@ -1,6 +1,8 @@
 export default async function sitemap() {
   const baseUrl = 'https://gdpdf.online';
+  const currentDate = new Date();
 
+  // PDF & General Tools Routes
   const tools = [
     '',
     '/compress-pdf',
@@ -18,12 +20,30 @@ export default async function sitemap() {
     '/signature-6x2-cm',
   ];
 
-  const currentDate = new Date();
+  // GD Typing Pro Suite Routes
+  const typingRoutes = [
+    '/typing',
+    '/typing/dashboard',
+    '/typing/dashboard/exams',
+    '/typing/dashboard/hindi',
+    '/typing/dashboard/practice',
+    '/typing/dashboard/games',
+    '/typing/dashboard/certificates',
+  ];
 
-  return tools.map((route) => ({
+  const toolEntries = tools.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: route === '' ? 'daily' : 'weekly',
     priority: route === '' ? 1.0 : 0.8,
   }));
+
+  const typingEntries = typingRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  return [...toolEntries, ...typingEntries];
 }
