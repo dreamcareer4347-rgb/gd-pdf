@@ -1,13 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Header from '@/components/Header'; // <-- Header yahan import kiya hai
+import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import UploadArea from '@/components/UploadArea';
-import ImageList from '@/components/ImageList';
-import PdfSettings from '@/components/PdfSettings';
-import PdfPreview from '@/components/PdfPreview';
-import DownloadPanel from '@/components/DownloadPanel';
+import ImageToPdf from '@/components/ImageToPdf'; // <-- Imported here
 import MergePdf from '@/components/MergePdf';
 import CompressPdf from '@/components/CompressPdf';
 import ImageResizer from '@/components/ImageResizer';
@@ -38,192 +34,69 @@ import PdfToPdfA from '@/components/PdfToPdfA';
 import HowItWorks from '@/components/HowItWorks';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
-import { generatePdf } from '@/utils/pdfGenerator';
-import { validateImageFile } from '@/utils/fileValidation';
-import { loadImage } from '@/utils/imageUtils';
+import { ArrowRight } from 'lucide-react';
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState('image-to-pdf');
+export default function Home({ defaultTab = 'home' }) {
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
-  // Page refresh ya load hone par hash detect karne ke liye
   useEffect(() => {
     const checkHash = () => {
       const hash = window.location.hash.replace('#', '');
       if (hash) {
         setActiveTab(hash);
       } else {
-        setActiveTab('image-to-pdf');
+        setActiveTab(defaultTab);
       }
     };
 
     checkHash();
     window.addEventListener('hashchange', checkHash);
     return () => window.removeEventListener('hashchange', checkHash);
-  }, []);
-
-  // Picture to PDF state
-  const [images, setImages] = useState([]);
-  const [settings, setSettings] = useState({
-    pageSize: 'a4',
-    orientation: 'portrait',
-    imagePlacement: 'fit',
-    margins: 'normal',
-    filename: 'gd-converted-images.pdf',
-  });
-  const [isConverting, setIsConverting] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [result, setResult] = useState(null);
-
-  const handleImagesAdded = (newImages) => {
-    setImages((prev) => [...prev, ...newImages]);
-    setResult(null);
-  };
-
-  const handleRemoveImage = (id) => {
-    setImages((prev) => {
-      const target = prev.find((img) => img.id === id);
-      if (target) URL.revokeObjectURL(target.url);
-      return prev.filter((img) => img.id !== id);
-    });
-    setResult(null);
-  };
-
-  const handleClearAll = () => {
-    images.forEach((img) => URL.revokeObjectURL(img.url));
-    setImages([]);
-    setResult(null);
-  };
-
-  const handleRotateImage = (id) => {
-    setImages((prev) =>
-      prev.map((img) =>
-        img.id === id ? { ...img, rotation: (img.rotation + 90) % 360 } : img
-      )
-    );
-  };
-
-  const handleMoveUp = (index) => {
-    if (index === 0) return;
-    setImages((prev) => {
-      const copy = [...prev];
-      const temp = copy[index];
-      copy[index] = copy[index - 1];
-      copy[index - 1] = temp;
-      return copy;
-    });
-  };
-
-  const handleMoveDown = (index) => {
-    if (index === images.length - 1) return;
-    setImages((prev) => {
-      const copy = [...prev];
-      const temp = copy[index];
-      copy[index] = copy[index + 1];
-      copy[index + 1] = temp;
-      return copy;
-    });
-  };
-
-  const handleConvert = async () => {
-    if (images.length === 0) return;
-    setIsConverting(true);
-    setProgress(0);
-    setResult(null);
-
-    try {
-      const pdfResult = await generatePdf({
-        images,
-        settings,
-        onProgress: (p) => setProgress(p),
-      });
-      setResult(pdfResult);
-    } catch (error) {
-      console.error('PDF Generation Error:', error);
-      alert('Failed to generate PDF. Please try again.');
-    } finally {
-      setIsConverting(false);
-    }
-  };
-
-  const handleReset = () => {
-    handleClearAll();
-    setResult(null);
-  };
-
-  const handleAddMoreFiles = async (fileList) => {
-    const newImages = [];
-    for (let file of fileList) {
-      const val = validateImageFile(file);
-      if (val.isValid) {
-        try {
-          const loaded = await loadImage(file);
-          newImages.push(loaded);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    }
-    if (newImages.length > 0) {
-      handleImagesAdded(newImages);
-    }
-  };
+  }, [defaultTab]);
 
   return (
     <div className="flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen">
-      
-      {/* Header component yahan add kar diya hai */}
+      {/* Root Header */}
       <Header />
 
       <div className="flex-grow">
-        {/* TAB 1: Image to PDF */}
-        {activeTab === 'image-to-pdf' && (
+        
+        {/* HOMEPAGE ROOT VIEW */}
+        {activeTab === 'home' && (
           <>
             <HeroSection 
               onGetStarted={() => {
-                const element = document.getElementById('converter-workspace');
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
+                window.location.hash = 'image-to-pdf';
               }} 
             />
 
-            <main id="converter-workspace" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-              {images.length === 0 ? (
-                <UploadArea onImagesAdded={handleImagesAdded} />
-              ) : (
-                <div className="space-y-8 animate-fade-in">
-                  <ImageList
-                    images={images}
-                    onRemove={handleRemoveImage}
-                    onClearAll={handleClearAll}
-                    onRotate={handleRotateImage}
-                    onMoveUp={handleMoveUp}
-                    onMoveDown={handleMoveDown}
-                    onAddMoreClick={() => {
-                      const input = document.createElement('input');
-                      input.type = 'file';
-                      input.multiple = true;
-                      input.accept = 'image/jpeg,image/png,image/webp';
-                      input.onchange = (e) => {
-                        if (e.target.files) handleAddMoreFiles(Array.from(e.target.files));
-                      };
-                      input.click();
-                    }}
-                  />
-                  <PdfSettings settings={settings} onChange={setSettings} />
-                  <PdfPreview images={images} settings={settings} />
-                  <DownloadPanel
-                    onConvert={handleConvert}
-                    isConverting={isConverting}
-                    progress={progress}
-                    result={result}
-                    onReset={handleReset}
-                  />
+            {/* Direct Tool Launch Banner */}
+            <section className="max-w-5xl mx-auto px-4 py-16">
+              <div className="bg-gradient-to-br from-[#033B70] to-blue-900 text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-xl relative overflow-hidden">
+                <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-600/20 rounded-full blur-2xl pointer-events-none"></div>
+                <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight">Ready to Convert Images to PDF?</h3>
+                <p className="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                  Convert JPG, PNG, and WebP images to high-quality PDF files instantly without uploading your files to any remote server.
+                </p>
+                <div>
+                  <button
+                    onClick={() => { window.location.hash = 'image-to-pdf'; }}
+                    className="inline-flex items-center gap-2 bg-white text-[#033B70] hover:bg-slate-100 font-black text-sm px-8 py-4 rounded-xl shadow-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+                  >
+                    <span>Launch Image to PDF Converter</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
-              )}
-            </main>
+              </div>
+            </section>
+
             <HowItWorks />
             <FaqSection />
           </>
         )}
+
+        {/* IMAGE TO PDF TAB VIEW */}
+        {activeTab === 'image-to-pdf' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageToPdf /></main>}
 
         {/* Standard PDF & Image Utilities */}
         {activeTab === 'resize-image' && <main className="max-w-5xl mx-auto px-4 py-12"><ImageResizer /></main>}
@@ -254,6 +127,7 @@ export default function Home() {
         {activeTab === 'pdf-to-pdfa' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPdfA /></main>}
       </div>
 
+      {/* Root Footer */}
       <Footer />
     </div>
   );

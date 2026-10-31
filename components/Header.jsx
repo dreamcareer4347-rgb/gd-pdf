@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -28,28 +28,17 @@ export default function Header() {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentHash, setCurrentHash] = useState('');
-
-  useEffect(() => {
-    setCurrentHash(window.location.hash);
-    const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
 
   const handleTabClick = (hash) => {
     setDropdownOpen(false);
     setMobileMenuOpen(false);
     if (pathname === '/') {
       window.location.hash = hash;
-      setCurrentHash(`#${hash}`);
     }
   };
 
   const primaryNav = [
-    { href: '/', label: 'To PDF', icon: FileText, hash: 'image-to-pdf' },
+    { href: '/image-to-pdf', label: 'To PDF', icon: FileText, isPage: true },
     { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText, hash: 'word-to-pdf' },
     { href: '/#excel-to-pdf', label: 'Excel to PDF', icon: FileSpreadsheet, hash: 'excel-to-pdf' },
     { href: '/#resize-image', label: 'Resize', icon: Maximize2, hash: 'resize-image' },
@@ -59,20 +48,22 @@ export default function Header() {
   ];
 
   const quickMobileTools = [
-    { href: '/', label: 'To PDF', icon: FileText, hash: 'image-to-pdf' },
-    { href: '/typing', label: 'Typing Pro', icon: Keyboard },
+    { href: '/image-to-pdf', label: 'To PDF', icon: FileText, isPage: true },
+    { href: '/typing', label: 'Typing Pro', icon: Keyboard, isPage: true },
+    { href: '/#image-to-png', label: 'Image to PNG', icon: FileImage, hash: 'image-to-png' },
     { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText, hash: 'word-to-pdf' },
     { href: '/#resize-image', label: 'Resize', icon: Maximize2, hash: 'resize-image' },
     { href: '/#compress-pdf', label: 'Compress', icon: Minimize2, hash: 'compress-pdf' },
     { href: '/#merge-pdf', label: 'Merge', icon: Layers, hash: 'merge-pdf' },
-    { href: '/iphone-photo-converter', label: 'HEIC to JPG', icon: Smartphone },
-    { href: '/passport-photo-maker', label: 'Passport Photo', icon: UserCheck },
-    { href: '/name-dob-photo', label: 'Name & DOB', icon: Type },
-    { href: '/nda-age-calculator', label: 'Age Calc', icon: Calculator },
-    { href: '/signature-6x2-cm', label: 'Signature 6x2', icon: Ruler },
+    { href: '/iphone-photo-converter', label: 'HEIC to JPG', icon: Smartphone, isPage: true },
+    { href: '/passport-photo-maker', label: 'Passport Photo', icon: UserCheck, isPage: true },
+    { href: '/name-dob-photo', label: 'Name & DOB', icon: Type, isPage: true },
+    { href: '/nda-age-calculator', label: 'Age Calc', icon: Calculator, isPage: true },
+    { href: '/signature-6x2-cm', label: 'Signature 6x2', icon: Ruler, isPage: true },
   ];
 
   const convertToPdfTools = [
+    { href: '/image-to-pdf', label: 'Image to PDF', icon: FileText, isPage: true },
     { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText, hash: 'word-to-pdf' },
     { href: '/#excel-to-pdf', label: 'Excel to PDF', icon: FileSpreadsheet, hash: 'excel-to-pdf' },
     { href: '/#html-to-pdf', label: 'HTML to PDF', icon: Code, hash: 'html-to-pdf' },
@@ -85,17 +76,18 @@ export default function Header() {
   ];
 
   const examPhotoTools = [
-    { href: '/typing', label: 'GD Typing Pro Suite', icon: Keyboard },
-    { href: '/name-dob-photo', label: 'Add Name & DOB on Photo', icon: Type },
-    { href: '/passport-photo-maker', label: 'Passport Photo Maker & 4x6', icon: UserCheck },
-    { href: '/signature-6x2-cm', label: 'Signature 6×2 cm Resizer', icon: Ruler },
-    { href: '/nda-age-calculator', label: 'NDA Age Calculator', icon: Calculator },
+    { href: '/typing', label: 'GD Typing Pro Suite', icon: Keyboard, isPage: true },
+    { href: '/name-dob-photo', label: 'Add Name & DOB on Photo', icon: Type, isPage: true },
+    { href: '/passport-photo-maker', label: 'Passport Photo Maker & 4x6', icon: UserCheck, isPage: true },
+    { href: '/signature-6x2-cm', label: 'Signature 6×2 cm Resizer', icon: Ruler, isPage: true },
+    { href: '/nda-age-calculator', label: 'NDA Age Calculator', icon: Calculator, isPage: true },
     { href: '/#custom-exam-resizer', label: 'SSC/NEET Exam Resizer', icon: Sliders, hash: 'custom-exam-resizer' },
     { href: '/#generate-sign', label: 'Generate Signature Pad', icon: PenTool, hash: 'generate-sign' },
   ];
 
   const imageTools = [
-    { href: '/iphone-photo-converter', label: 'iPhone HEIC to JPG', icon: Smartphone },
+    { href: '/#image-to-png', label: 'Image to PNG', icon: FileImage, hash: 'image-to-png' },
+    { href: '/iphone-photo-converter', label: 'iPhone HEIC to JPG', icon: Smartphone, isPage: true },
     { href: '/#image-to-jpg', label: 'Image to JPG', icon: FileImage, hash: 'image-to-jpg' },
     { href: '/#merge-images', label: 'Merge Images', icon: Layers, hash: 'merge-images' },
     { href: '/#ecommerce-resizer', label: 'E-Commerce Resizer', icon: Maximize2, hash: 'ecommerce-resizer' },
@@ -107,7 +99,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           
           {/* Logo */}
-          <Link href="/" onClick={() => handleTabClick('image-to-pdf')} className="flex items-center space-x-2.5 cursor-pointer group shrink-0">
+          <Link href="/" onClick={() => setDropdownOpen(false)} className="flex items-center space-x-2.5 cursor-pointer group shrink-0">
             <div className="w-10 h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
               <svg viewBox="0 0 100 100" className="w-full h-full text-[#033B70] fill-current">
                 <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="9" />
@@ -122,9 +114,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center space-x-1 bg-slate-100 p-1 rounded-xl">
             {primaryNav.map((item) => {
-              const isActive = item.isPage 
-                ? pathname.startsWith('/typing')
-                : pathname === item.href && ((!item.hash && !currentHash) || currentHash === `#${item.hash}`);
+              const isActive = pathname === item.href;
               
               return (
                 <Link
@@ -141,7 +131,7 @@ export default function Header() {
               );
             })}
 
-            {/* Categorized 4-Column Mega Menu Dropdown */}
+            {/* Mega Menu Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -154,15 +144,18 @@ export default function Header() {
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-[920px] bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 grid grid-cols-4 gap-6 z-50">
                   
-                  {/* Column 1: Convert to PDF */}
+                  {/* Column 1 */}
                   <div className="space-y-3">
-                    <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider">Convert to PDF</p>
+                    <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Convert to PDF</p>
                     <div className="space-y-1">
                       {convertToPdfTools.map((item) => (
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => item.hash && handleTabClick(item.hash)}
+                          onClick={() => {
+                            setDropdownOpen(false);
+                            if (item.hash) handleTabClick(item.hash);
+                          }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -172,15 +165,18 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 2: Convert from PDF */}
+                  {/* Column 2 */}
                   <div className="space-y-3">
-                    <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider">Convert from PDF</p>
+                    <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Convert from PDF</p>
                     <div className="space-y-1">
                       {convertFromPdfTools.map((item) => (
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => item.hash && handleTabClick(item.hash)}
+                          onClick={() => {
+                            setDropdownOpen(false);
+                            if (item.hash) handleTabClick(item.hash);
+                          }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -190,15 +186,18 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 3: Govt Exam & Photo Tools */}
+                  {/* Column 3 */}
                   <div className="space-y-3">
-                    <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider">Govt Exam & Photos</p>
+                    <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Govt Exam & Photos</p>
                     <div className="space-y-1">
                       {examPhotoTools.map((item) => (
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => item.hash && handleTabClick(item.hash)}
+                          onClick={() => {
+                            setDropdownOpen(false);
+                            if (item.hash) handleTabClick(item.hash);
+                          }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -208,15 +207,18 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 4: Quick Image Tools */}
+                  {/* Column 4 */}
                   <div className="space-y-3">
-                    <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider">Image & Utility Tools</p>
+                    <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Image & Utility Tools</p>
                     <div className="space-y-1">
                       {imageTools.map((item) => (
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => item.hash && handleTabClick(item.hash)}
+                          onClick={() => {
+                            setDropdownOpen(false);
+                            if (item.hash) handleTabClick(item.hash);
+                          }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -231,8 +233,8 @@ export default function Header() {
             </div>
           </nav>
 
-          <div className="hidden sm:flex items-center space-x-1.5 text-xs text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100 font-semibold shrink-0">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="hidden sm:flex items-center space-x-1.5 text-xs text-[#033B70] bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 font-bold shrink-0">
+            <ShieldCheck className="w-4 h-4 text-blue-600" />
             <span>100% Secure</span>
           </div>
 
@@ -267,10 +269,8 @@ export default function Header() {
       {/* Mobile Menu Modal */}
       {mobileMenuOpen && (
         <div className="xl:hidden absolute top-28 left-0 w-full bg-white border-b border-slate-200 shadow-2xl py-6 px-5 space-y-6 z-50 max-h-[80vh] overflow-y-auto">
-          
-          {/* Govt Exam & Photo Tools */}
           <div>
-            <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">🎯 Govt Exam & Photo Tools</p>
+            <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider mb-2">🎯 Govt Exam & Photo Tools</p>
             <div className="grid grid-cols-1 gap-1.5">
               {examPhotoTools.map((item) => (
                 <Link
@@ -285,61 +285,6 @@ export default function Header() {
               ))}
             </div>
           </div>
-
-          {/* Image & Utility Tools */}
-          <div>
-            <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">🖼️ Image & Utility Tools</p>
-            <div className="grid grid-cols-1 gap-1.5">
-              {imageTools.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => item.hash ? handleTabClick(item.hash) : setMobileMenuOpen(false)}
-                  className="w-full flex items-center space-x-2.5 text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
-                >
-                  <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Convert to PDF */}
-          <div>
-            <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">📁 Convert to PDF</p>
-            <div className="grid grid-cols-1 gap-1.5">
-              {convertToPdfTools.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => item.hash ? handleTabClick(item.hash) : setMobileMenuOpen(false)}
-                  className="w-full flex items-center space-x-2.5 text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
-                >
-                  <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Convert from PDF */}
-          <div>
-            <p className="text-[11px] font-black uppercase text-blue-600 tracking-wider mb-2">🔄 Convert from PDF</p>
-            <div className="grid grid-cols-1 gap-1.5">
-              {convertFromPdfTools.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => item.hash ? handleTabClick(item.hash) : setMobileMenuOpen(false)}
-                  className="w-full flex items-center space-x-2.5 text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
-                >
-                  <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
         </div>
       )}
     </>

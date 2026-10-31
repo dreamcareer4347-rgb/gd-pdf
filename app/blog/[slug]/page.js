@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const articles = {
   'how-to-crack-ssc-cgl-typing-test': {
     title: 'How to Crack SSC CGL & High Court Typing Test: Complete Speed & Accuracy Guide',
+    description: 'Master touch typing, eliminate backspace dependency, and boost your WPM speed for government exam simulations using GD Typing Pro Suite.',
     date: 'October 31, 2026',
     category: 'Typing Guide',
     content: `
       Passing the government exam typing test (such as SSC CGL, CHSL, Steno, or various State High Court examinations) requires more than just fast typing fingers—it demands extreme accuracy, mental composure under timed pressure, and familiarity with standard keyboard layouts.
 
       ### 1. Master Touch Typing Without Looking at the Keyboard
-      The biggest mistake aspirants make is looking down at the keyboard. Touch typing relies on muscle memory anchored to the home row keys (ASDF and JKL;). By using GD Typing Pro Suite's structured 20-lesson touch typing course, you train your brain to map keys instantly without visual dependency.
+      The biggest mistake aspirants make is looking down at the keyboard. Touch typing relies on muscle memory anchored to the home row keys (ASDF and JKL;). By using GD Typing Pro Suite's structured touch typing course, you train your brain to map keys instantly without visual dependency.
 
       ### 2. Focus on Accuracy Over Raw Speed
       Government exams calculate net speed by heavily penalizing errors. If you type 40 WPM with 20 mistakes, your net score drops drastically. Aim for a consistent 95%+ accuracy rate during practice sessions. Our platform's real-time error tracker helps highlight weak keys so you can eliminate habitual mistakes.
@@ -21,6 +24,7 @@ const articles = {
   },
   'ssc-typing-test-error-calculation-formula': {
     title: 'How SSC & High Court Calculate Typing Test Errors: Full Formula & Accuracy Tips',
+    description: 'Understand gross speed, net speed, and full/half mistake rules used in government recruitment board typing tests.',
     date: 'October 31, 2026',
     category: 'Exam Tips',
     content: `
@@ -41,6 +45,7 @@ const articles = {
   },
   'how-to-resize-image-signature-for-upsc-ssc-form': {
     title: 'How to Resize Photo and Signature for UPSC and SSC Portal Uploads (KB & Dimension Guide)',
+    description: 'Learn official KB limits and dimension requirements for passport photos and signatures without risking form rejection.',
     date: 'October 31, 2026',
     category: 'Document Guides',
     content: `
@@ -56,6 +61,7 @@ const articles = {
   },
   'compress-pdf-below-100kb-without-losing-quality': {
     title: 'How to Compress PDF and Images Below 100KB for Government Portal Uploads',
+    description: 'Learn the easiest ways to resize images, compress PDF files, and format 6x2 cm signatures securely in your browser without losing clarity.',
     date: 'October 30, 2026',
     category: 'PDF Tools',
     content: `
@@ -73,6 +79,7 @@ const articles = {
   },
   'best-free-pdf-tools-without-uploading-files': {
     title: 'Why Browser-Based Client-Side PDF Tools are Safer Than Cloud Converters',
+    description: 'Discover why processing sensitive documents locally in your browser guarantees absolute privacy with zero server file uploads.',
     date: 'October 30, 2026',
     category: 'Privacy & Tech',
     content: `
@@ -89,8 +96,20 @@ const articles = {
   },
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return Object.keys(articles).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const post = articles[resolvedParams.slug];
+  if (!post) return { title: 'Article Not Found — GD PDF Suite' };
+  
+  return {
+    title: `${post.title} — GD PDF Suite Blog`,
+    description: post.description,
+    alternates: { canonical: `https://gdpdf.online/blog/${resolvedParams.slug}` },
+  };
 }
 
 export default async function BlogPostPage({ params }) {
@@ -104,59 +123,42 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      {/* Header */}
-      <header className="bg-[#033B70] text-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <img src="/gd-logo.png" alt="Logo" className="w-8 h-8 rounded bg-white p-0.5" />
-            <span>GD PDF Suite & Typing Pro</span>
-          </Link>
-          <div className="flex items-center gap-4 text-sm font-medium">
-            <Link href="/" className="hover:underline">Home</Link>
-            <Link href="/typing" className="hover:underline">Typing Pro</Link>
-            <Link href="/blog" className="hover:underline">Blog</Link>
-          </div>
-        </div>
-      </header>
+      {/* Global Root Header */}
+      <Header />
 
       {/* Main Article */}
-      <main className="flex-grow max-w-3xl mx-auto px-4 py-12 w-full">
-        <div className="mb-6">
-          <Link href="/blog" className="text-sm font-semibold text-[#033B70] hover:underline mb-4 inline-block">
+      <main className="flex-grow max-w-3xl mx-auto px-4 py-12 w-full space-y-6">
+        <div>
+          <Link href="/blog" className="text-xs font-bold text-[#033B70] hover:underline mb-4 inline-block">
             ← Back to Blog Articles
           </Link>
-          <div className="flex items-center gap-3 text-xs text-slate-500 mb-2">
-            <span className="bg-blue-100 text-[#033B70] font-semibold px-2.5 py-1 rounded-full">{post.category}</span>
+          <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+            <span className="bg-blue-50 text-[#033B70] font-semibold px-2.5 py-1 rounded-md">{post.category}</span>
             <span>{post.date}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#033B70] leading-tight mb-4">{post.title}</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#033B70] leading-tight tracking-tight mb-4">
+            {post.title}
+          </h1>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm space-y-6 text-slate-700 leading-relaxed text-base">
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-xs space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
           {post.content.split('\n\n').map((paragraph, index) => {
-            if (paragraph.startsWith('### ')) {
+            const trimmed = paragraph.trim();
+            if (trimmed.startsWith('### ')) {
               return (
-                <h2 key={index} className="text-xl font-bold text-slate-900 mt-6 mb-2">
-                  {paragraph.replace('### ', '')}
+                <h2 key={index} className="text-xl font-bold text-slate-900 mt-6 mb-2 tracking-tight">
+                  {trimmed.replace('### ', '')}
                 </h2>
               );
             }
-            return <p key={index}>{paragraph}</p>;
+            if (!trimmed) return null;
+            return <p key={index}>{trimmed}</p>;
           })}
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-[#033B70] text-white py-6 mt-12">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-          <p>© 2026 GD PDF Suite & Typing Pro. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
-            <Link href="/terms" className="hover:underline">Terms & Conditions</Link>
-            <Link href="/disclaimer" className="hover:underline">Disclaimer</Link>
-          </div>
-        </div>
-      </footer>
+      {/* Global Root Footer */}
+      <Footer />
     </div>
   );
 }
