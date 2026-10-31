@@ -20,7 +20,8 @@ import {
   UserCheck,
   Smartphone,
   ChevronDown,
-  Menu
+  Menu,
+  Keyboard
 } from 'lucide-react';
 
 export default function Header() {
@@ -54,10 +55,12 @@ export default function Header() {
     { href: '/#resize-image', label: 'Resize', icon: Maximize2, hash: 'resize-image' },
     { href: '/#compress-pdf', label: 'Compress', icon: Minimize2, hash: 'compress-pdf' },
     { href: '/#merge-pdf', label: 'Merge', icon: Layers, hash: 'merge-pdf' },
+    { href: '/typing', label: 'Typing Pro', icon: Keyboard, isPage: true },
   ];
 
   const quickMobileTools = [
     { href: '/', label: 'To PDF', icon: FileText, hash: 'image-to-pdf' },
+    { href: '/typing', label: 'Typing Pro', icon: Keyboard },
     { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText, hash: 'word-to-pdf' },
     { href: '/#resize-image', label: 'Resize', icon: Maximize2, hash: 'resize-image' },
     { href: '/#compress-pdf', label: 'Compress', icon: Minimize2, hash: 'compress-pdf' },
@@ -82,6 +85,7 @@ export default function Header() {
   ];
 
   const examPhotoTools = [
+    { href: '/typing', label: 'GD Typing Pro Suite', icon: Keyboard },
     { href: '/name-dob-photo', label: 'Add Name & DOB on Photo', icon: Type },
     { href: '/passport-photo-maker', label: 'Passport Photo Maker & 4x6', icon: UserCheck },
     { href: '/signature-6x2-cm', label: 'Signature 6×2 cm Resizer', icon: Ruler },
@@ -118,7 +122,10 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center space-x-1 bg-slate-100 p-1 rounded-xl">
             {primaryNav.map((item) => {
-              const isActive = pathname === item.href && ((!item.hash && !currentHash) || currentHash === `#${item.hash}`);
+              const isActive = item.isPage 
+                ? pathname.startsWith('/typing')
+                : pathname === item.href && ((!item.hash && !currentHash) || currentHash === `#${item.hash}`);
+              
               return (
                 <Link
                   key={item.label}
@@ -257,7 +264,7 @@ export default function Header() {
         ))}
       </div>
 
-      {/* Mobile Menu Modal (Ab yaha saare tools list kar diye hain) */}
+      {/* Mobile Menu Modal */}
       {mobileMenuOpen && (
         <div className="xl:hidden absolute top-28 left-0 w-full bg-white border-b border-slate-200 shadow-2xl py-6 px-5 space-y-6 z-50 max-h-[80vh] overflow-y-auto">
           
