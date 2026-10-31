@@ -515,7 +515,7 @@ export default function CertificatesTestPage() {
                   </div>
                   
                   <div className="text-center">
-                    <div className="font-serif italic text-xl text-blue-300 mb-1">GD Board of Examinations</div>
+                    <div className="font-serif italic text-xl text-blue-300 mb-1">GD</div>
                     <div className="border-t border-slate-700 pt-1">Authorized Examiner</div>
                   </div>
                 </div>
