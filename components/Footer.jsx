@@ -95,6 +95,13 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Official Disclaimer Notice */}
+        <div className="mb-8 pt-4 border-t border-slate-800 text-xs text-slate-400 leading-relaxed bg-slate-950/40 p-4 rounded-2xl border border-slate-800/60">
+          <p>
+            <strong className="text-slate-300">Disclaimer:</strong> GD PDF Suite & Typing Pro is an independent practice platform. We are not affiliated with, endorsed by, or connected to UPSC, SSC, IBPS, RRB or any government body. Exam patterns are referenced for practice purposes only.
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
           <p>© {currentYear} GD PDF Suite. All rights reserved.</p>
