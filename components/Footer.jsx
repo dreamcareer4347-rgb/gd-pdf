@@ -47,7 +47,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Tools & Formats */}
+          {/* Quick Links */}
           <div>
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Quick Links</h3>
             <ul className="space-y-2 text-xs sm:text-sm">
@@ -59,6 +59,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/blog" className="hover:text-white transition-colors">Blog & Exam Guides</Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
               </li>
               <li>
                 <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
@@ -93,6 +99,8 @@ export default function Footer() {
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
           <p>© {currentYear} GD PDF Suite. All rights reserved.</p>
           <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
+            <Link href="/about" className="hover:text-slate-300 transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-slate-300 transition-colors">Contact</Link>
             <Link href="/blog" className="hover:text-slate-300 transition-colors">Blog</Link>
             <Link href="/privacy-policy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>

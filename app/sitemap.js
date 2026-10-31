@@ -31,6 +31,16 @@ export default async function sitemap() {
     '/typing/dashboard/certificates',
   ];
 
+  // Policy & Trust Pages & Blog Routes
+  const policyAndBlogRoutes = [
+    '/blog',
+    '/about',
+    '/contact',
+    '/privacy-policy',
+    '/terms',
+    '/disclaimer',
+  ];
+
   const toolEntries = tools.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
@@ -45,5 +55,12 @@ export default async function sitemap() {
     priority: 0.85,
   }));
 
-  return [...toolEntries, ...typingEntries];
+  const policyEntries = policyAndBlogRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  }));
+
+  return [...toolEntries, ...typingEntries, ...policyEntries];
 }
