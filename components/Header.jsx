@@ -21,6 +21,7 @@ import {
   Smartphone,
   ChevronDown,
   Menu,
+  X,
   Keyboard
 } from 'lucide-react';
 
@@ -48,18 +49,15 @@ export default function Header() {
   ];
 
   const quickMobileTools = [
-    { href: '/image-to-pdf', label: 'To PDF', icon: FileText, isPage: true },
+    { href: '/image-to-pdf', label: 'Image to PDF', icon: FileText, isPage: true },
     { href: '/typing', label: 'Typing Pro', icon: Keyboard, isPage: true },
-    { href: '/#image-to-png', label: 'Image to PNG', icon: FileImage, hash: 'image-to-png' },
-    { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText, hash: 'word-to-pdf' },
-    { href: '/#resize-image', label: 'Resize', icon: Maximize2, hash: 'resize-image' },
-    { href: '/#compress-pdf', label: 'Compress', icon: Minimize2, hash: 'compress-pdf' },
-    { href: '/#merge-pdf', label: 'Merge', icon: Layers, hash: 'merge-pdf' },
-    { href: '/iphone-photo-converter', label: 'HEIC to JPG', icon: Smartphone, isPage: true },
     { href: '/passport-photo-maker', label: 'Passport Photo', icon: UserCheck, isPage: true },
     { href: '/name-dob-photo', label: 'Name & DOB', icon: Type, isPage: true },
     { href: '/nda-age-calculator', label: 'Age Calc', icon: Calculator, isPage: true },
     { href: '/signature-6x2-cm', label: 'Signature 6x2', icon: Ruler, isPage: true },
+    { href: '/iphone-photo-converter', label: 'HEIC to JPG', icon: Smartphone, isPage: true },
+    { href: '/#compress-pdf', label: 'Compress PDF', icon: Minimize2, hash: 'compress-pdf' },
+    { href: '/#merge-pdf', label: 'Merge PDF', icon: Layers, hash: 'merge-pdf' },
   ];
 
   const convertToPdfTools = [
@@ -115,7 +113,6 @@ export default function Header() {
           <nav className="hidden xl:flex items-center space-x-1 bg-slate-100 p-1 rounded-xl">
             {primaryNav.map((item) => {
               const isActive = pathname === item.href;
-              
               return (
                 <Link
                   key={item.label}
@@ -143,8 +140,6 @@ export default function Header() {
 
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-[920px] bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 grid grid-cols-4 gap-6 z-50">
-                  
-                  {/* Column 1 */}
                   <div className="space-y-3">
                     <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Convert to PDF</p>
                     <div className="space-y-1">
@@ -152,10 +147,7 @@ export default function Header() {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => {
-                            setDropdownOpen(false);
-                            if (item.hash) handleTabClick(item.hash);
-                          }}
+                          onClick={() => { setDropdownOpen(false); if (item.hash) handleTabClick(item.hash); }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -165,7 +157,6 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 2 */}
                   <div className="space-y-3">
                     <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Convert from PDF</p>
                     <div className="space-y-1">
@@ -173,10 +164,7 @@ export default function Header() {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => {
-                            setDropdownOpen(false);
-                            if (item.hash) handleTabClick(item.hash);
-                          }}
+                          onClick={() => { setDropdownOpen(false); if (item.hash) handleTabClick(item.hash); }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -186,7 +174,6 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 3 */}
                   <div className="space-y-3">
                     <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Govt Exam & Photos</p>
                     <div className="space-y-1">
@@ -194,10 +181,7 @@ export default function Header() {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => {
-                            setDropdownOpen(false);
-                            if (item.hash) handleTabClick(item.hash);
-                          }}
+                          onClick={() => { setDropdownOpen(false); if (item.hash) handleTabClick(item.hash); }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -207,7 +191,6 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Column 4 */}
                   <div className="space-y-3">
                     <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">Image & Utility Tools</p>
                     <div className="space-y-1">
@@ -215,10 +198,7 @@ export default function Header() {
                         <Link
                           key={item.label}
                           href={item.href}
-                          onClick={() => {
-                            setDropdownOpen(false);
-                            if (item.hash) handleTabClick(item.hash);
-                          }}
+                          onClick={() => { setDropdownOpen(false); if (item.hash) handleTabClick(item.hash); }}
                           className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
@@ -227,7 +207,6 @@ export default function Header() {
                       ))}
                     </div>
                   </div>
-
                 </div>
               )}
             </div>
@@ -238,21 +217,21 @@ export default function Header() {
             <span>100% Secure</span>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle Button */}
           <div className="xl:hidden flex items-center space-x-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center space-x-1 px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl font-bold text-xs transition-all cursor-pointer"
+              className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#033B70] text-white hover:bg-blue-900 rounded-xl font-bold text-xs transition-all cursor-pointer shadow-sm"
             >
-              <Menu className="w-4 h-4" />
-              <span>All Tools</span>
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              <span>{mobileMenuOpen ? 'Close' : 'All Tools'}</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* Mobile Horizontal Quick Scroll Bar */}
-      <div className="xl:hidden bg-slate-50 border-b border-slate-200 px-3 py-2 overflow-x-auto flex space-x-2 scrollbar-none shrink-0">
+      <div className="xl:hidden bg-slate-50 border-b border-slate-200 px-3 py-2.5 overflow-x-auto flex space-x-2 scrollbar-none shrink-0">
         {quickMobileTools.map((item) => (
           <Link
             key={item.label}
@@ -260,24 +239,44 @@ export default function Header() {
             onClick={() => item.hash && handleTabClick(item.hash)}
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all cursor-pointer shrink-0 bg-white text-slate-700 border border-slate-200 hover:bg-blue-50 hover:text-blue-600"
           >
-            <item.icon className="w-3.5 h-3.5 shrink-0" />
+            <item.icon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
             <span>{item.label}</span>
           </Link>
         ))}
       </div>
 
-      {/* Mobile Menu Modal */}
+      {/* Comprehensive Mobile Menu Drawer (Shows ALL tools categorized) */}
       {mobileMenuOpen && (
-        <div className="xl:hidden absolute top-28 left-0 w-full bg-white border-b border-slate-200 shadow-2xl py-6 px-5 space-y-6 z-50 max-h-[80vh] overflow-y-auto">
-          <div>
-            <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider mb-2">🎯 Govt Exam & Photo Tools</p>
-            <div className="grid grid-cols-1 gap-1.5">
+        <div className="xl:hidden fixed inset-x-0 top-28 bg-white border-b border-slate-200 shadow-2xl py-6 px-5 space-y-6 z-50 max-h-[75vh] overflow-y-auto">
+          
+          {/* Section 1: Convert to & from PDF */}
+          <div className="space-y-2">
+            <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">📄 PDF Conversion Tools</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[...convertToPdfTools, ...convertFromPdfTools].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => { setMobileMenuOpen(false); if (item.hash) handleTabClick(item.hash); }}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer border border-slate-100"
+                >
+                  <item.icon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  <span className="truncate">{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 2: Govt Exam & Photo Tools */}
+          <div className="space-y-2">
+            <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">🎯 Govt Exam & Photo Tools</p>
+            <div className="grid grid-cols-1 gap-2">
               {examPhotoTools.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => item.hash ? handleTabClick(item.hash) : setMobileMenuOpen(false)}
-                  className="w-full flex items-center space-x-2.5 text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
+                  onClick={() => { setMobileMenuOpen(false); if (item.hash) handleTabClick(item.hash); }}
+                  className="flex items-center space-x-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer border border-slate-100"
                 >
                   <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
                   <span>{item.label}</span>
@@ -285,6 +284,25 @@ export default function Header() {
               ))}
             </div>
           </div>
+
+          {/* Section 3: Image Utilities */}
+          <div className="space-y-2">
+            <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">🖼️ Image & Utility Tools</p>
+            <div className="grid grid-cols-2 gap-2">
+              {imageTools.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => { setMobileMenuOpen(false); if (item.hash) handleTabClick(item.hash); }}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer border border-slate-100"
+                >
+                  <item.icon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  <span className="truncate">{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
         </div>
       )}
     </>
