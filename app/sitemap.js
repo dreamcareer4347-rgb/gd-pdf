@@ -1,66 +1,68 @@
-export default async function sitemap() {
-  const baseUrl = 'https://gdpdf.online';
-  const currentDate = new Date();
+// app/sitemap.js
 
-  // PDF & General Tools Routes
-  const tools = [
-    '',
-    '/compress-pdf',
-    '/compress-pdf-100kb',
-    '/compress-pdf-200kb',
-    '/ilovepdf-alternative',
-    '/image-to-pdf',
-    '/iphone-photo-converter',
-    '/merge-pdf',
-    '/name-dob-photo',
-    '/nda-age-calculator',
-    '/passport-photo-maker',
-    '/resize-image',
-    '/resize-image-for-form',
-    '/signature-6x2-cm',
-  ];
+const baseUrl = 'https://gdpdf.online';
 
-  // GD Typing Pro Suite Routes
-  const typingRoutes = [
-    '/typing',
-    '/typing/dashboard',
-    '/typing/dashboard/exams',
-    '/typing/dashboard/hindi',
-    '/typing/dashboard/practice',
-    '/typing/dashboard/games',
-    '/typing/dashboard/certificates',
-  ];
+// Tool routes with active image & PDF resizer pages
+const toolRoutes = [
+  { path: '', lastModified: '2026-11-02', priority: 1.0 },
+  { path: '/compress-pdf', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/compress-pdf-100kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/compress-pdf-200kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/compress-pdf-500kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/image-to-pdf', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/merge-pdf', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/resize-image', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/resize-image-for-form', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/photo-resize-20kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/photo-resize-50kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/photo-resize-100kb', lastModified: '2026-11-02', priority: 0.9 },
+  { path: '/passport-photo-maker', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/signature-6x2-cm', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/name-dob-photo', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/iphone-photo-converter', lastModified: '2026-11-02', priority: 0.7 },
+  { path: '/ilovepdf-alternative', lastModified: '2026-11-02', priority: 0.7 },
+  { path: '/nda-age-calculator', lastModified: '2026-11-02', priority: 0.7 },
+];
 
-  // Policy & Trust Pages & Blog Routes
-  const policyAndBlogRoutes = [
-    '/blog',
-    '/about',
-    '/contact',
-    '/privacy-policy',
-    '/terms',
-    '/disclaimer',
-  ];
+const typingRoutes = [
+  { path: '/typing', lastModified: '2026-11-02', priority: 0.8 },
+  { path: '/typing/dashboard/exams', lastModified: '2026-11-02', priority: 0.7 },
+  { path: '/typing/dashboard/hindi', lastModified: '2026-11-02', priority: 0.7 },
+  { path: '/typing/dashboard/games', lastModified: '2026-11-02', priority: 0.7 },
+  { path: '/typing/dashboard/certificates', lastModified: '2026-11-02', priority: 0.6 },
+];
 
-  const toolEntries = tools.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: route === '' ? 'daily' : 'weekly',
-    priority: route === '' ? 1.0 : 0.8,
+const blogPosts = [];
+
+const trustRoutes = [
+  { path: '/blog', lastModified: '2026-11-02', priority: 0.5 },
+  { path: '/about', lastModified: '2026-10-31', priority: 0.5 },
+  { path: '/contact', lastModified: '2026-10-31', priority: 0.5 },
+  { path: '/disclaimer', lastModified: '2026-10-31', priority: 0.3 },
+  { path: '/privacy-policy', lastModified: '2026-10-31', priority: 0.3 },
+  { path: '/terms', lastModified: '2026-10-31', priority: 0.3 },
+];
+
+const blogEntries = blogPosts.map((post) => ({
+  url: `${baseUrl}/blog/${post.slug}`,
+  lastModified: post.lastModified,
+  changeFrequency: 'monthly',
+  priority: 0.6,
+}));
+
+const toEntries = (routes) =>
+  routes.map((route) => ({
+    url: route.path === '' ? `${baseUrl}/` : `${baseUrl}${route.path}`,
+    lastModified: route.lastModified,
+    changeFrequency: route.path === '' ? 'daily' : 'weekly',
+    priority: route.priority,
   }));
 
-  const typingEntries = typingRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly',
-    priority: 0.85,
-  }));
-
-  const policyEntries = policyAndBlogRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly',
-    priority: 0.5,
-  }));
-
-  return [...toolEntries, ...typingEntries, ...policyEntries];
+export default function sitemap() {
+  return [
+    ...toEntries(toolRoutes),
+    ...toEntries(typingRoutes),
+    ...blogEntries,
+    ...toEntries(trustRoutes),
+  ];
 }

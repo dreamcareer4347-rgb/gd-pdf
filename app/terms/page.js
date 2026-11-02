@@ -61,7 +61,7 @@ export default function TermsPage() {
                 <Link href="/contact" className="text-blue-600 font-bold hover:underline">
                   Contact Page
                 </Link>{' '}
-                or email <strong>support@gdpdf.online</strong>.
+                or email <strong>gdpdf7744@gmail.com</strong>.
               </p>
             </section>
           </div>
