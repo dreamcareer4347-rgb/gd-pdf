@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
-import ImageToPdf from '@/components/ImageToPdf'; // <-- Imported here
+import ImageToPdf from '@/components/ImageToPdf';
 import MergePdf from '@/components/MergePdf';
 import CompressPdf from '@/components/CompressPdf';
 import ImageResizer from '@/components/ImageResizer';
@@ -33,30 +34,34 @@ import PdfToPdfA from '@/components/PdfToPdfA';
 
 import HowItWorks from '@/components/HowItWorks';
 import FaqSection from '@/components/FaqSection';
-import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
 
 export default function Home({ defaultTab = 'home' }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
   useEffect(() => {
-    const checkHash = () => {
-      const hash = window.location.hash.replace('#', '');
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').trim();
       if (hash) {
         setActiveTab(hash);
       } else {
-        setActiveTab(defaultTab);
+        setActiveTab('home');
       }
     };
 
-    checkHash();
-    window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
-  }, [defaultTab]);
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen">
-      {/* Root Header */}
+      {/* Header */}
       <Header />
 
       <div className="flex-grow">
@@ -127,7 +132,7 @@ export default function Home({ defaultTab = 'home' }) {
         {activeTab === 'pdf-to-pdfa' && <main className="max-w-5xl mx-auto px-4 py-12"><PdfToPdfA /></main>}
       </div>
 
-      {/* Root Footer */}
+      {/* Footer */}
       <Footer />
     </div>
   );

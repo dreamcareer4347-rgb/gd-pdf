@@ -20,9 +20,9 @@ export default function ResizeImagePage() {
       <main className="flex-grow py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main tool heading changed to h2 to avoid duplicate h1 tags */}
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
             Resize Image KB & Pixels
-          </h2>
+          </h1>
           <p className="text-center text-slate-600 text-sm mb-8 max-w-xl mx-auto">
             Modify image dimensions (width/height) and file size for official application forms and documents.
           </p>

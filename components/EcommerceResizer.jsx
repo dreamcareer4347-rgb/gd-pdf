@@ -164,7 +164,7 @@ export default function EcommerceResizer() {
             <ShoppingBag className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">Bulk E-Commerce Product Image Resizer</h1>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">Bulk E-Commerce Product Image Resizer</h2>
             <p className="text-xs sm:text-sm text-slate-500">
               Resize, format, and batch download product photos for Amazon, Flipkart, and Meesho with automatic white background padding and exact pixel dimensions.
             </p>

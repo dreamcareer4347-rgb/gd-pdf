@@ -80,7 +80,8 @@ export default function NdaAgeCalculatorClient() {
           <ShieldCheck className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">NDA Age Calculator Online</h1>
+          {/* Fixed: h1 changed to h2 to prevent double H1 conflict with page */}
+          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">NDA Age Calculator Online</h2>
           <p className="text-xs sm:text-sm text-slate-500">Check UPSC NDA 1 & NDA 2 Exam Eligibility by Date of Birth</p>
         </div>
       </div>

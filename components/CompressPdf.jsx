@@ -133,9 +133,9 @@ export default function CompressPdf() {
           <span>Fast & 100% Free Online Tool</span>
         </div>
         
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Compress PDF to Exact KB Size Online
-        </h1>
+        </h3>
         
         <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
           Reduce your PDF file size instantly for government application forms and job portals. Runs securely in your browser.

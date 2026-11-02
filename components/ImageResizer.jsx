@@ -146,9 +146,9 @@ export default function ImageResizer() {
           <Zap className="w-3.5 h-3.5" />
           <span>Fast & 100% Free Online Tool</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Resize Image & Compress to Exact KB Size
-        </h1>
+        </h3>
         <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
           Easily resize photo dimensions (Width & Height) or compress file size to exact KB limits for government exam forms.
         </p>

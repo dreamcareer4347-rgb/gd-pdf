@@ -79,27 +79,45 @@ export default function Header() {
   ];
 
   const homepageSections = [
-    { href: '/#word-to-pdf', label: 'Word to PDF', icon: FileText },
-    { href: '/#excel-to-pdf', label: 'Excel to PDF', icon: FileSpreadsheet },
-    { href: '/#html-to-pdf', label: 'HTML to PDF', icon: Code },
-    { href: '/#pdf-to-jpg', label: 'PDF to JPG', icon: FileImage },
-    { href: '/#pdf-to-word', label: 'PDF to Word', icon: FileText },
-    { href: '/#custom-exam-resizer', label: 'SSC/NEET Resizer', icon: Sliders },
-    { href: '/#generate-sign', label: 'Signature Pad', icon: PenTool },
+    { href: '/#word-to-pdf', hash: 'word-to-pdf', label: 'Word to PDF', icon: FileText },
+    { href: '/#excel-to-pdf', hash: 'excel-to-pdf', label: 'Excel to PDF', icon: FileSpreadsheet },
+    { href: '/#html-to-pdf', hash: 'html-to-pdf', label: 'HTML to PDF', icon: Code },
+    { href: '/#pdf-to-jpg', hash: 'pdf-to-jpg', label: 'PDF to JPG', icon: FileImage },
+    { href: '/#pdf-to-word', hash: 'pdf-to-word', label: 'PDF to Word', icon: FileText },
+    { href: '/#custom-exam-resizer', hash: 'custom-exam-resizer', label: 'SSC/NEET Resizer', icon: Sliders },
+    { href: '/#generate-sign', hash: 'generate-sign', label: 'Signature Pad', icon: PenTool },
   ];
 
   const isActive = (href) => pathname === href;
 
-  const MenuLink = ({ item, onNavigate, truncate = false }) => (
-    <Link
-      href={item.href}
-      onClick={onNavigate}
-      className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
-    >
-      <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
-      <span className={truncate ? 'truncate' : ''}>{item.label}</span>
-    </Link>
-  );
+  // Fixed Hash & Route Click Handler
+  const MenuLink = ({ item, onNavigate, truncate = false }) => {
+    const isHash = item.href.startsWith('/#');
+
+    const handleClick = (e) => {
+      onNavigate();
+      if (isHash) {
+        e.preventDefault();
+        const targetHash = item.hash || item.href.replace('/#', '');
+        if (pathname === '/') {
+          window.location.hash = targetHash;
+        } else {
+          window.location.href = item.href;
+        }
+      }
+    };
+
+    return (
+      <a
+        href={item.href}
+        onClick={handleClick}
+        className="w-full flex items-center space-x-2 text-left px-2.5 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+      >
+        <item.icon className="w-4 h-4 text-blue-600 shrink-0" />
+        <span className={truncate ? 'truncate' : ''}>{item.label}</span>
+      </a>
+    );
+  };
 
   return (
     <>
@@ -282,15 +300,7 @@ export default function Header() {
             <p className="text-[11px] font-black uppercase text-[#033B70] tracking-wider">On the home page</p>
             <div className="grid grid-cols-2 gap-2">
               {homepageSections.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeAll}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-bold bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer border border-slate-100"
-                >
-                  <item.icon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                  <span className="truncate">{item.label}</span>
-                </Link>
+                <MenuLink key={item.href} item={item} onNavigate={closeAll} truncate />
               ))}
             </div>
           </div>
