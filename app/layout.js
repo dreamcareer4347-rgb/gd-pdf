@@ -1,6 +1,6 @@
 import './globals.css';
 import SeoSchema from '@/components/SeoSchema';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   metadataBase: new URL('https://gdpdf.online'),
