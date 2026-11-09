@@ -30,7 +30,6 @@ export const metadata = {
     },
   },
   keywords: [
-    // PDF & Document Tools
     'Picture to PDF',
     'Image to PDF',
     'Compress PDF Online Free',
@@ -43,7 +42,6 @@ export const metadata = {
     'GD PDF Suite',
     'Free PDF Converter',
     'ILovePDF Alternative',
-    // Typing Pro Suite & Govt Exams
     'Online Typing Test Free',
     'Touch Typing Course Online',
     'Govt Exam Typing Test Practice',
@@ -62,7 +60,6 @@ export const metadata = {
   verification: {
     google: '0i-Rdd8sDuMwGD84UMyQcj63tyEtVDlNNY0oMHIbsg4',
   },
-  // Monetag Verification Tag Added Here
   other: {
     'monetag': '964c72ea3b4f286fe48b528e524c06f2',
   },
@@ -100,6 +97,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Monetag Tag Script Added */}
+        <script src="https://quge5.com/88/tag.min.js" data-zone="307913" async data-cfasync="false"></script>
+      </head>
       <body className="antialiased bg-white text-slate-900 flex flex-col min-h-screen">
         <SeoSchema />
         
