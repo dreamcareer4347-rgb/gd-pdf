@@ -62,6 +62,10 @@ export const metadata = {
   verification: {
     google: '0i-Rdd8sDuMwGD84UMyQcj63tyEtVDlNNY0oMHIbsg4',
   },
+  // Monetag Verification Tag Added Here
+  other: {
+    'monetag': '964c72ea3b4f286fe48b528e524c06f2',
+  },
   openGraph: {
     title: 'GD PDF Suite & Typing Pro — Free PDF Tools & Govt Exam Typing Master',
     description: 'Master touch typing with exam-grade passages and process documents securely in your browser with zero server uploads.',
