@@ -96,10 +96,28 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
-        {/* Monetag Tag Script Added */}
-        <script src="https://quge5.com/88/tag.min.js" data-zone="307913" async data-cfasync="false"></script>
+        {/* 1. Monetag Vignette Banner (Great tag - 12228981) */}
+        <script 
+          dangerouslySetInnerHTML={{
+            __html: `(function(s){s.dataset.zone='12228981',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`,
+          }}
+        />
+
+        {/* 2. Monetag In-Page Push (Sharp-witted tag - 12228992) */}
+        <script 
+          dangerouslySetInnerHTML={{
+            __html: `(function(s){s.dataset.zone='12228992',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`,
+          }}
+        />
+
+        {/* 3. Monetag Push Notifications (Lovely tag - 12228985) */}
+        <script 
+          src="https://5gvci.com/act/files/tag.min.js?z=12228985" 
+          data-cfasync="false" 
+          async 
+        />
       </head>
       <body className="antialiased bg-white text-slate-900 flex flex-col min-h-screen">
         <SeoSchema />
