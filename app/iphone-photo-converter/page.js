@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import HeicConverter from '@/components/HeicConverter';
 
 export const metadata = {
@@ -45,6 +46,14 @@ export default function IphonePhotoConverterPage() {
           '@type': 'Answer',
           'text': 'Most government exam portals, application forms, and website uploads do not support Apple HEIC format, requiring standard JPG or PNG files.'
         }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Are my private photos uploaded to any server?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'No. All conversions happen entirely inside your web browser using client-side JavaScript, ensuring 100% privacy and security.'
+        }
       }
     ]
   };
@@ -63,16 +72,42 @@ export default function IphonePhotoConverterPage() {
         <div className="max-w-4xl mx-auto space-y-10">
           <HeicConverter />
 
-          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-600 text-sm space-y-6">
-            <h2 className="text-xl font-extrabold text-slate-800">
+          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-700 text-sm sm:text-base space-y-6 shadow-sm">
+            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
               Why Use iPhone Photo Converter?
             </h2>
-            <p className="leading-relaxed">
-              Apple devices save camera shots in HEIC format to save storage space, but online admission forms and government job applications often reject them. Our <strong>iPhone Photo Converter</strong> transforms your HEIC files into universally accepted JPG or PNG formats securely inside your browser.
+            <p className="leading-relaxed text-slate-600">
+              Apple devices save camera shots in <strong>HEIC format</strong> to conserve storage space, but online admission portals, recruitment forms, and government job applications frequently reject them. Our <strong>iPhone Photo Converter</strong> transforms your HEIC files into universally accepted JPG or PNG formats securely inside your browser with absolute privacy.
             </p>
+
+            <div className="space-y-4 pt-4 border-t border-slate-100">
+              <h3 className="text-xl font-extrabold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h3>
+              
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">How to convert iPhone HEIC photos to JPG online?</h4>
+                  <p className="text-slate-600">Upload your HEIC/HEIF file from your iPhone, select your desired output format (JPG or PNG), and click convert to download your compatible image instantly.</p>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">Why do I need to convert HEIC to JPG?</h4>
+                  <p className="text-slate-600">Most government exam portals, application forms, and website uploads do not support Apple HEIC format, requiring standard JPG or PNG files.</p>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">Are my private photos uploaded to any server?</h4>
+                  <p className="text-slate-600">No. All conversions happen entirely inside your web browser using client-side JavaScript, ensuring 100% privacy and security.</p>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </main>
+
+      {/* Footer Added */}
+      <Footer />
     </div>
   );
 }

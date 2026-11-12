@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import NdaAgeCalculatorClient from '@/components/NdaAgeCalculator';
 
 export const metadata = {
   title: 'NDA Age Calculator Online - UPSC Defense Exam Eligibility Criteria',
-  description: 'Free NDA Age Limit Calculator for UPSC NDA 1 & NDA 2 exams. Check DOB eligibility, date criteria, and cutoff for NDA 2026/2027 defense aspirants.',
+  description: 'Free NDA Age Limit Calculator for UPSC NDA 1 & NDA 2 exams. Check DOB eligibility, date criteria, and cutoff for NDA defense aspirants.',
   keywords: [
     'nda age calculator',
     'upsc nda age limit',
@@ -40,7 +41,7 @@ export default function NdaAgeCalculatorPage() {
         'name': 'What is the age limit for UPSC NDA Exam?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'The age limit for UPSC NDA exam is usually between 15.7 years (16.5 at commencement of course) to 19.5 years. Only unmarried candidates born within the specified date range can apply.'
+          'text': 'The age limit for UPSC NDA exam is usually between 16.5 years to 19.5 years at the commencement of the course. Only unmarried candidates born within the official UPSC notification date range can apply.'
         }
       },
       {
@@ -48,7 +49,15 @@ export default function NdaAgeCalculatorPage() {
         'name': 'Is age relaxation applicable for SC/ST in NDA exam?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'No, UPSC does not provide any age relaxation for SC/ST or OBC candidates in the NDA exam.'
+          'text': 'No, UPSC does not provide any category-based age relaxation for SC, ST, or OBC candidates in the National Defence Academy (NDA) examination.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Can female candidates apply for NDA?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Yes, female candidates are fully eligible to apply for the UPSC NDA exam subject to the same age limit rules and marital status requirements as male candidates.'
         }
       }
     ]
@@ -71,45 +80,51 @@ export default function NdaAgeCalculatorPage() {
           <NdaAgeCalculatorClient />
 
           {/* SEO Keywords & Article Section */}
-          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-600 text-sm space-y-6">
-            <h2 className="text-xl font-extrabold text-slate-800">
-              UPSC NDA Age Limit & Eligibility Criteria
+          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-700 text-sm sm:text-base space-y-6 shadow-sm">
+            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+              UPSC NDA Age Limit &amp; Eligibility Calculator
             </h2>
             <p className="leading-relaxed">
-              The National Defence Academy (NDA) entrance exam is conducted twice a year by UPSC (NDA 1 and NDA 2). 
-              Calculating your exact age based on the official UPSC notifications can be confusing. 
-              Our <strong>NDA Age Calculator</strong> simplifies this by telling you instantly whether your Date of Birth (DOB) fits the eligible criteria.
+              The National Defence Academy (NDA) entrance examination is conducted twice every year by the Union Public Service Commission (<strong>UPSC NDA 1 &amp; NDA 2</strong>). Calculating your exact eligibility based on shifting notification cutoff dates can often be confusing. Our free <strong>NDA Age Calculator</strong> instantly verifies whether your Date of Birth (DOB) falls within the official criteria set for defense aspirants.
             </p>
 
-            <h3 className="text-base font-bold text-slate-800 pt-2">
-              Target Keywords & NDA Eligibility Rules
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm">
-              <li><strong>Age Limit Range:</strong> 16.5 years to 19.5 years (at course commencement).</li>
-              <li><strong>Marital Status:</strong> Only unmarried male and female candidates are eligible.</li>
-              <li><strong>Educational Qualification:</strong> 12th Pass or appearing in 12th standard (Physics & Math required for Air Force & Navy wings).</li>
-            </ul>
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 space-y-2">
+              <h3 className="font-bold text-slate-900 text-base">🛡️ Core NDA Eligibility Rules</h3>
+              <ul className="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-600">
+                <li><strong>Age Bracket:</strong> Generally between 16.5 years and 19.5 years at the time course commences.</li>
+                <li><strong>Marital Status:</strong> Only unmarried male and female candidates are eligible to apply.</li>
+                <li><strong>Educational Qualification:</strong> 12th Class Pass (with Physics &amp; Mathematics specifically required for Air Force and Naval wings).</li>
+              </ul>
+            </div>
 
-            <div className="pt-4 border-t border-slate-100">
-              <h3 className="text-base font-bold text-slate-800 mb-3">Frequently Asked Questions (FAQs)</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-bold text-slate-700">Can girls apply for NDA?</h4>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Yes, female candidates are fully eligible for the NDA exam subject to the same age limit rules as male candidates.
-                  </p>
+            <div className="space-y-4 pt-4 border-t border-slate-100">
+              <h3 className="text-xl font-extrabold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h3>
+              
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">What is the age limit for UPSC NDA Exam?</h4>
+                  <p className="text-slate-600">The age limit for UPSC NDA exam is usually between 16.5 years to 19.5 years at the commencement of the course. Only unmarried candidates born within the official notification range can apply.</p>
                 </div>
-                <div>
-                  <h4 className="font-bold text-slate-700">How many attempts are allowed for NDA?</h4>
-                  <p className="text-xs text-slate-500 mt-1">
-                    There is no fixed limit on the number of attempts. You can appear as long as your age falls within the eligibility range.
-                  </p>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">Can girls apply for NDA?</h4>
+                  <p className="text-slate-600">Yes, female candidates are fully eligible for the NDA exam subject to the same age limit rules and criteria as male candidates.</p>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">How many attempts are allowed for NDA?</h4>
+                  <p className="text-slate-600">There is no fixed limit on the total number of attempts. You can appear as long as your date of birth falls within the permissible eligibility age range.</p>
                 </div>
               </div>
             </div>
           </section>
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

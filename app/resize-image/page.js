@@ -14,14 +14,43 @@ export const metadata = {
 };
 
 export default function ResizeImagePage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': [
+      {
+        '@type': 'Question',
+        'name': 'How do I resize a photo for online application forms?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Upload your picture, enter the exact target width, height, or target KB size specified in the form requirements, and click Resize to download your perfectly adjusted image instantly.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Which image formats are supported?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'GD PDF supports popular formats including JPG, JPEG, PNG, and WebP for fast client-side resizing without any server uploads.'
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-slate-50">
+      {/* FAQ Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      
       <Header />
       <main className="flex-grow py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main tool heading changed to h2 to avoid duplicate h1 tags */}
+          {/* Main tool heading */}
           <h1 className="text-3xl font-black text-slate-900 tracking-tight text-center mb-2">
-            Resize Image KB & Pixels
+            Resize Image KB &amp; Pixels
           </h1>
           <p className="text-center text-slate-600 text-sm mb-8 max-w-xl mx-auto">
             Modify image dimensions (width/height) and file size for official application forms and documents.

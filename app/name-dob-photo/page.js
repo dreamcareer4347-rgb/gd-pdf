@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import AddNameAndDate from '@/components/AddNameAndDate';
 
 export const metadata = {
@@ -45,6 +46,14 @@ export default function NameDobPhotoPage() {
           '@type': 'Answer',
           'text': 'Most government portals (like SSC and IBPS) require the format DD-MM-YYYY (e.g., 15-05-2026) printed clearly on a black/white strip at the bottom of the photo.'
         }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Is my photo uploaded to any external server?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'No! All processing happens securely right inside your browser using client-side scripts. Your images remain 100% private and safe.'
+        }
       }
     ]
   };
@@ -63,38 +72,51 @@ export default function NameDobPhotoPage() {
         <div className="max-w-4xl mx-auto space-y-10">
           <AddNameAndDate />
 
-          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-600 text-sm space-y-6">
-            <h2 className="text-xl font-extrabold text-slate-800">
+          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 text-slate-700 text-sm sm:text-base space-y-6 shadow-sm">
+            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
               Add Name and Date on Photo (DOP Maker) for Job Forms
             </h2>
             <p className="leading-relaxed">
-              Many government recruitment boards (SSC CGL, CHSL, MTS, Banking, and State Exams) strictly require candidates to print their **Name and Date of Photo (DOP)** directly on the passport-size photograph. Failing to do so can lead to rejection of your application form. 
-              Our <strong>Name & DOB Photo Maker</strong> lets you add custom text strips with zero hassle right inside your browser.
+              Many government recruitment boards (<strong>SSC CGL, CHSL, MTS, Banking, and State Exams</strong>) strictly require candidates to print their <strong>Name and Date of Photo (DOP)</strong> directly on the passport-size photograph. Failing to follow these notification guidelines can lead to automated rejection of your application form. Our <strong>Name &amp; DOB Photo Maker</strong> lets you add custom text strips with zero hassle right inside your browser.
             </p>
 
-            <h3 className="text-base font-bold text-slate-800 pt-2">
-              Key Guidelines for Exam Photos:
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm">
-              <li><strong>Clear Visibility:</strong> Name and date must be printed in capital letters on a clear background strip at the bottom.</li>
-              <li><strong>Recent Photo:</strong> The date on the photo should ideally not be older than 3 months from the notification date.</li>
-              <li><strong>Exact Format:</strong> Keep text clean and legible (e.g., `Dev Sharma / 15-05-2026`).</li>
-            </ul>
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 space-y-2">
+              <h3 className="font-bold text-slate-900 text-base">📌 Key Guidelines for Exam Photos</h3>
+              <ul className="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-600">
+                <li><strong>Clear Visibility:</strong> Name and date must be printed clearly in capital letters on a solid background strip at the bottom of the photo.</li>
+                <li><strong>Recent Photo:</strong> The date on the photo should ideally not be older than 3 months from the official notification date.</li>
+                <li><strong>Exact Format:</strong> Keep text clean and legible (e.g., <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 text-xs font-mono">Dev Sharma / 15-05-2026</code>).</li>
+              </ul>
+            </div>
 
-            <div className="pt-4 border-t border-slate-100">
-              <h3 className="text-base font-bold text-slate-800 mb-3">Frequently Asked Questions</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-bold text-slate-700">Is my photo uploaded to any external server?</h4>
-                  <p className="text-xs text-slate-500 mt-1">
-                    No! All processing happens securely right in your browser. Your images remain private and safe.
-                  </p>
+            <div className="space-y-4 pt-4 border-t border-slate-100">
+              <h3 className="text-xl font-extrabold text-slate-900">
+                Frequently Asked Questions (FAQs)
+              </h3>
+              
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">How to add name and date on photo for SSC/UPSC forms?</h4>
+                  <p className="text-slate-600">Upload your passport size photo, enter your candidate name and the date when the photo was taken, adjust the text bar style, and download your final ready-to-upload image instantly.</p>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">What format should the date be on government exam photos?</h4>
+                  <p className="text-slate-600">Most government portals (like SSC and IBPS) require the format DD-MM-YYYY (e.g., 15-05-2026) printed clearly on a strip at the bottom of the photo.</p>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-xl">
+                  <h4 className="font-bold text-slate-900 mb-1">Is my photo uploaded to any external server?</h4>
+                  <p className="text-slate-600">No! All processing happens securely right in your browser. Your images remain private and safe.</p>
                 </div>
               </div>
             </div>
           </section>
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

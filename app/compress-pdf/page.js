@@ -14,8 +14,35 @@ export const metadata = {
 };
 
 export default function CompressPdfPage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': [
+      {
+        '@type': 'Question',
+        'name': 'Can I compress PDF to a specific KB size?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Yes, GD PDF allows custom compression levels so you can reduce PDF file sizes to match exact application form requirement limits (e.g., under 100KB, 200KB, or 500KB).'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'Will PDF compression lower my document quality?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'GD PDF optimizes internal elements while preserving text clarity and picture readability so your document stays professional.'
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-grow py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
